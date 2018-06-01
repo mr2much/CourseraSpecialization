@@ -7,10 +7,12 @@
  */
 
 import edu.duke.FileResource;
+import edu.duke.DirectoryResource;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.util.List;
 import java.io.IOException;
+import java.io.File;
 import java.nio.file.Paths;
 
 public class WeatherParser {
@@ -43,9 +45,8 @@ public class WeatherParser {
         testRecordCount(parser.getRecords());
         testAverages();
         
-        // TODO: change getMaxTemp method to return CSVRecord with
-        // highest temperature, instead of returning a float
         testMaxTemp();
+        testMaxTempInManyDays();
         
         System.out.println("Tests finished.");
     }
@@ -123,38 +124,85 @@ public class WeatherParser {
     public void testMaxTemp() {
         FileResource fr = getFileResourceFor(
             Paths.get("nc_weather/2012/weather-2012-01-01.csv").toString());
-        float value = getMaxTemp(fr.getCSVParser());
+        CSVRecord max = getMaxTemp(fr.getCSVParser());
+        float value = Float.parseFloat(max.get("TemperatureF"));
         
         if (value < 66.9) {
             System.out.println("Expected 66.9 but got " + value);
+        } else {
+            System.out.println("The hottest temp was: " + value + " at " +
+                max.get("TimeEST"));
         }
         
-        value = getMaxTemp(null);
+        max = getMaxTemp(null);
         
-        if (value != 0.0f) {
+        if (max != null) {
             System.out.println("Expected 0.0f got " + value);
         }
         
         System.out.println("Finished testing max temperature");
     }
     
-    public float getMaxTemp(CSVParser parser) {
+    public CSVRecord getMaxTemp(CSVParser parser) {
         
         if (parser == null) {
-            return 0.0f;
+            return null;
         }
+        
+        CSVRecord maxRecord = null;
         
         float max = 0.0f;
         
         for (CSVRecord record : parser) {
             String tempStr = record.get("TemperatureF");
-            float currentTemp = Float.parseFloat(tempStr);
+            float currentTemp = getTempFrom(record);
             
             if (currentTemp > max) {
                 max = currentTemp;
+                maxRecord = record;
             }
         }
         
-        return max;
+        return maxRecord;
+    }
+    
+    private float getTempFrom(CSVRecord record) {
+        float result = 0.0f;
+        
+        String tempStr = record.get("TemperatureF");
+        result = Float.parseFloat(tempStr);
+        
+        return result;
+    }
+    
+    public void testMaxTempInManyDays() {
+        CSVRecord max = getMaxTempInManyDays();
+        
+        System.out.println("Max temperature was " + max.get("TemperatureF") +
+            " at " + max.get("DateUTC"));
+    }
+    
+    public CSVRecord getMaxTempInManyDays() {
+        CSVRecord maxRecord = null;
+        DirectoryResource dr = new DirectoryResource();
+        
+        for(File f : dr.selectedFiles()) {
+            FileResource fr = new FileResource(f);
+            
+            CSVRecord currentRecord = getMaxTemp(fr.getCSVParser());
+            
+            if(maxRecord == null) {
+                maxRecord = currentRecord;
+            } else {
+                float currentMax = getTempFrom(maxRecord);
+                float currentTemp = getTempFrom(currentRecord);
+                
+                if(currentTemp > currentMax) {
+                    maxRecord = currentRecord;
+                }
+            }
+        }
+        
+        return maxRecord;
     }
 }
