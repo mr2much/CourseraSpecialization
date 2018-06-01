@@ -155,14 +155,25 @@ public class WeatherParser {
         
         for (CSVRecord record : parser) {
             String tempStr = record.get("TemperatureF");
-            float currentTemp = getTempFrom(record);
-            
-            if (currentTemp > max) {
-                max = currentTemp;
-                maxRecord = record;
-            }
+            maxRecord = getLargestOfTwo(record, maxRecord);
         }
         
+        return maxRecord;
+    }
+    
+    private CSVRecord getLargestOfTwo(CSVRecord currentRecord, 
+        CSVRecord maxRecord) {
+        if(maxRecord == null) {
+            maxRecord = currentRecord;
+        } else {
+            float currentMax = getTempFrom(maxRecord);
+            float currentTemp = getTempFrom(currentRecord);
+            
+            if(currentTemp > currentMax) {
+                maxRecord = currentRecord;
+            }
+        }
+            
         return maxRecord;
     }
     
@@ -191,16 +202,7 @@ public class WeatherParser {
             
             CSVRecord currentRecord = getMaxTemp(fr.getCSVParser());
             
-            if(maxRecord == null) {
-                maxRecord = currentRecord;
-            } else {
-                float currentMax = getTempFrom(maxRecord);
-                float currentTemp = getTempFrom(currentRecord);
-                
-                if(currentTemp > currentMax) {
-                    maxRecord = currentRecord;
-                }
-            }
+            maxRecord = getLargestOfTwo(currentRecord, maxRecord);
         }
         
         return maxRecord;
