@@ -11,6 +11,7 @@ import edu.duke.DirectoryResource;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.util.List;
+import java.util.Iterator;
 import java.io.IOException;
 import java.io.File;
 import java.nio.file.Paths;
@@ -33,21 +34,22 @@ public class WeatherParser {
     }
     
     public void test() throws IOException {
-        FileResource fr = new FileResource();
-        CSVParser parser = getCSVParser(fr);
+        //FileResource fr = new FileResource();
+        //CSVParser parser = getCSVParser(fr);
         
-        nullTest(fr, parser);
+        //nullTest(fr, parser);
         
         // TODO: read all files in path using DirectoryResource()
         // TODO: get average records of all files
         // TODO: test if record count is lower than average for a given file
         
-        testRecordCount(parser.getRecords());
+        //testRecordCount(parser.getRecords());
         testAverages();
         
         testMaxTemp();
-        testMaxTempInManyDays();
-        
+        //testMaxTempInManyDays();
+        testColdestHourInFile();
+        testFileWithColdestTemperature();
         System.out.println("Tests finished.");
     }
     
@@ -155,18 +157,18 @@ public class WeatherParser {
         
         for (CSVRecord record : parser) {
             String tempStr = record.get("TemperatureF");
-            maxRecord = getLargestOfTwo(record, maxRecord);
+            maxRecord = getLargestOfTwo(record, maxRecord, max);
+            max = getTempFrom(maxRecord);
         }
         
         return maxRecord;
     }
     
     private CSVRecord getLargestOfTwo(CSVRecord currentRecord, 
-        CSVRecord maxRecord) {
+        CSVRecord maxRecord, float currentMax) {
         if(maxRecord == null) {
             maxRecord = currentRecord;
         } else {
-            float currentMax = getTempFrom(maxRecord);
             float currentTemp = getTempFrom(currentRecord);
             
             if(currentTemp > currentMax) {
@@ -196,15 +198,99 @@ public class WeatherParser {
     public CSVRecord getMaxTempInManyDays() {
         CSVRecord maxRecord = null;
         DirectoryResource dr = new DirectoryResource();
-        
+        float max = 0.0f;
         for(File f : dr.selectedFiles()) {
-            FileResource fr = new FileResource(f);
+            FileResource fr = getFileResourceFor(f.toString());
             
             CSVRecord currentRecord = getMaxTemp(fr.getCSVParser());
-            
-            maxRecord = getLargestOfTwo(currentRecord, maxRecord);
+            maxRecord = getLargestOfTwo(currentRecord, maxRecord, max);
+            max = getTempFrom(maxRecord);
         }
         
         return maxRecord;
+    }
+    
+    public void testColdestHourInFile() {
+        FileResource fr = getFileResourceFor(
+            Paths.get("nc_weather/2014/weather-2014-01-03.csv").toString());
+        CSVRecord coldestRecord = coldestHourInFile(fr.getCSVParser());
+        float value = getTempFrom(coldestRecord);
+        
+        if (value > 21.9) {
+            System.out.println("Coldest day should be 35.1, got: " + value);
+        }
+        
+        System.out.println("Coldest temperature on that day was " + coldestRecord.get("TemperatureF") + " on " +
+            coldestRecord.get("DateUTC"));
+    }
+    
+    public CSVRecord coldestHourInFile(CSVParser parser) {
+        CSVRecord coldest = null;
+        float lowestTemp = 9999.0f;
+        
+        for(CSVRecord currentRecord : parser) {
+            coldest = getLowestOfTwo(currentRecord, coldest, lowestTemp);
+            lowestTemp = getTempFrom(coldest);
+            
+            if (lowestTemp == -9999) {
+                lowestTemp = 9999.0f;
+            }
+        }
+        
+        return coldest;
+    }
+    
+    private CSVRecord getLowestOfTwo(CSVRecord currentRecord, 
+        CSVRecord lowestRecord, float currentLowest) {
+        if(lowestRecord == null) {
+            lowestRecord = currentRecord;
+        } else {
+            float currentTemp = getTempFrom(currentRecord);
+            
+            if(currentTemp < currentLowest) {
+                lowestRecord = currentRecord;
+            }
+        }
+            
+        return lowestRecord;
+    }
+    
+    public void testFileWithColdestTemperature() {
+        String filename = fileWithColdestTemperature();
+        
+        if (!filename.equals("weather-2014-01-03.csv")) {
+            System.out.println("Filename should be 'weather-2014-01-03.csv' but got " + filename);
+        } else {
+            System.out.println("Coldest day was in file " + filename);
+            FileResource fr = getFileResourceFor(
+                Paths.get("nc_weather/2014", filename).toString());
+            CSVRecord lowest = coldestHourInFile(fr.getCSVParser());
+            System.out.println("Coldest temperature on that day was " + lowest.get("TemperatureF"));
+            
+            System.out.println("All the temperatures on the coldest day were: ");
+            for(CSVRecord record : fr.getCSVParser()) {
+                System.out.println(record.get("DateUTC") + ": " + record.get("TemperatureF"));
+            }
+        }
+    }
+    
+    public String fileWithColdestTemperature() {
+        String filename = "";
+        CSVRecord minRecord = null;
+        DirectoryResource dr = new DirectoryResource();
+        float minTemp = 9999.0f;
+        
+        for(File f : dr.selectedFiles()) {
+            FileResource fr = getFileResourceFor(f.toString());
+            CSVRecord currentRecord = coldestHourInFile(fr.getCSVParser());
+            minRecord = getLowestOfTwo(currentRecord, minRecord, minTemp);
+            
+            if (getTempFrom(minRecord) < minTemp) {
+                filename = f.getName();
+                minTemp = getTempFrom(minRecord);
+            }
+        }
+        
+        return filename;
     }
 }
