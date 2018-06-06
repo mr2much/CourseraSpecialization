@@ -158,7 +158,7 @@ public class WeatherParser {
         for (CSVRecord record : parser) {
             String tempStr = record.get("TemperatureF");
             maxRecord = getLargestOfTwo(record, maxRecord, max);
-            max = getTempFrom(maxRecord);
+            max = getFloatValueFrom(maxRecord, "TemperatureF");
         }
         
         return maxRecord;
@@ -169,7 +169,7 @@ public class WeatherParser {
         if(maxRecord == null) {
             maxRecord = currentRecord;
         } else {
-            float currentTemp = getTempFrom(currentRecord);
+            float currentTemp = getFloatValueFrom(currentRecord, "TemperatureF");
             
             if(currentTemp > currentMax) {
                 maxRecord = currentRecord;
@@ -179,11 +179,15 @@ public class WeatherParser {
         return maxRecord;
     }
     
-    private float getTempFrom(CSVRecord record) {
+    public float getFloatValueFrom(CSVRecord record, String searchValue) {
         float result = 0.0f;
         
-        String tempStr = record.get("TemperatureF");
-        result = Float.parseFloat(tempStr);
+        String tempStr = record.get(searchValue);
+        try {
+            result = Float.parseFloat(tempStr);
+        } catch (NumberFormatException e) {
+            result = Float.NaN;
+        }
         
         return result;
     }
@@ -204,7 +208,7 @@ public class WeatherParser {
             
             CSVRecord currentRecord = getMaxTemp(fr.getCSVParser());
             maxRecord = getLargestOfTwo(currentRecord, maxRecord, max);
-            max = getTempFrom(maxRecord);
+            max = getFloatValueFrom(maxRecord, "TemperatureF");
         }
         
         return maxRecord;
@@ -214,7 +218,7 @@ public class WeatherParser {
         FileResource fr = getFileResourceFor(
             Paths.get("nc_weather/2014/weather-2014-01-03.csv").toString());
         CSVRecord coldestRecord = coldestHourInFile(fr.getCSVParser());
-        float value = getTempFrom(coldestRecord);
+        float value = getFloatValueFrom(coldestRecord, "TemperatureF");
         
         if (value > 21.9) {
             System.out.println("Coldest day should be 35.1, got: " + value);
@@ -229,8 +233,8 @@ public class WeatherParser {
         float lowestTemp = 9999.0f;
         
         for(CSVRecord currentRecord : parser) {
-            coldest = getLowestOfTwo(currentRecord, coldest, lowestTemp);
-            lowestTemp = getTempFrom(coldest);
+            coldest = getLowestOfTwo(currentRecord, coldest, lowestTemp, "TemperatureF");
+            lowestTemp = getFloatValueFrom(coldest, "TemperatureF");
             
             if (lowestTemp == -9999) {
                 lowestTemp = 9999.0f;
@@ -240,12 +244,12 @@ public class WeatherParser {
         return coldest;
     }
     
-    private CSVRecord getLowestOfTwo(CSVRecord currentRecord, 
-        CSVRecord lowestRecord, float currentLowest) {
+    public CSVRecord getLowestOfTwo(CSVRecord currentRecord, 
+        CSVRecord lowestRecord, float currentLowest, String searchValue) {
         if(lowestRecord == null) {
             lowestRecord = currentRecord;
         } else {
-            float currentTemp = getTempFrom(currentRecord);
+            float currentTemp = getFloatValueFrom(currentRecord, searchValue);
             
             if(currentTemp < currentLowest) {
                 lowestRecord = currentRecord;
@@ -283,11 +287,11 @@ public class WeatherParser {
         for(File f : dr.selectedFiles()) {
             FileResource fr = getFileResourceFor(f.toString());
             CSVRecord currentRecord = coldestHourInFile(fr.getCSVParser());
-            minRecord = getLowestOfTwo(currentRecord, minRecord, minTemp);
+            minRecord = getLowestOfTwo(currentRecord, minRecord, minTemp, "TemperatureF");
             
-            if (getTempFrom(minRecord) < minTemp) {
+            if (getFloatValueFrom(minRecord, "TemperatureF") < minTemp) {
                 filename = f.getName();
-                minTemp = getTempFrom(minRecord);
+                minTemp = getFloatValueFrom(minRecord, "TemperatureF");
             }
         }
         
