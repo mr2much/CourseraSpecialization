@@ -297,4 +297,32 @@ public class WeatherParser {
         
         return filename;
     }
+    
+    public CSVRecord lowestHumidityInFile(CSVParser parser) {
+        CSVRecord lowest = null;
+        float lowestHumidity = 9999.0f;
+        
+        for (CSVRecord currentRecord : parser) {
+            lowest = getLowestOfTwo(currentRecord, lowest, lowestHumidity, "Humidity");
+            lowestHumidity = getFloatValueFrom(lowest, "Humidity");
+        }
+        
+        return lowest;
+    }
+    
+    public CSVRecord lowestHumidityInManyFiles() {
+        CSVRecord lowestRecord = null;
+        
+        float minHumidity = 9999.0f;
+        DirectoryResource dr = new DirectoryResource();
+        
+        for (File f : dr.selectedFiles()) {
+            FileResource fr = new FileResource(f.toString());
+            CSVRecord currentRecord = lowestHumidityInFile(fr.getCSVParser());
+            lowestRecord = getLowestOfTwo(currentRecord, lowestRecord, minHumidity, "Humidity");
+            minHumidity = getFloatValueFrom(lowestRecord, "Humidity");
+        }
+        
+        return lowestRecord;
+    }
 }
