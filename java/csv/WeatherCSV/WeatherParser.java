@@ -86,7 +86,7 @@ public class WeatherParser {
     public void testAverages() {
         FileResource fr = getFileResourceFor(
             Paths.get("nc_weather/2012/weather-2012-01-01.csv").toString());
-        float value = getAverageTemp(fr.getCSVParser());
+        double value = getAverageTemp(fr.getCSVParser());
         
         if (value < 52.61) {
             System.out.println("Expected 52.61 but got " + value);
@@ -101,19 +101,19 @@ public class WeatherParser {
         System.out.println("Finished testing average temperature.");
     }
     
-    public float getAverageTemp(CSVParser parser) {
+    public double getAverageTemp(CSVParser parser) {
         
         if (parser == null) {
-            return 0.0f;
+            return 0.0;
         }
         
         int recordCount = 0;
-        float tempTotal = 0.0f;
+        double tempTotal = 0.0;
         
         for (CSVRecord record : parser) {
             String temp = record.get("TemperatureF");
             
-            float t = Float.parseFloat(temp);
+            double t = Double.parseDouble(temp);
             
             tempTotal += t;
             
