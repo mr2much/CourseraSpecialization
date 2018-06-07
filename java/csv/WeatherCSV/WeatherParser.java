@@ -216,7 +216,7 @@ public class WeatherParser {
     
     public void testColdestHourInFile() {
         FileResource fr = getFileResourceFor(
-            Paths.get("nc_weather/2014/weather-2014-01-03.csv").toString());
+            Paths.get("nc_weather/2014/weather-2014-05-01.csv").toString());
         CSVRecord coldestRecord = coldestHourInFile(fr.getCSVParser());
         float value = getFloatValueFrom(coldestRecord, "TemperatureF");
         
@@ -264,6 +264,10 @@ public class WeatherParser {
         
         if (!filename.equals("weather-2014-01-03.csv")) {
             System.out.println("Filename should be 'weather-2014-01-03.csv' but got " + filename);
+            FileResource fr = getFileResourceFor(
+                Paths.get("nc_weather/2013", filename).toString());
+            CSVRecord lowest = coldestHourInFile(fr.getCSVParser());
+            System.out.println(lowest.get("DateUTC") + ": " + lowest.get("TemperatureF"));
         } else {
             System.out.println("Coldest day was in file " + filename);
             FileResource fr = getFileResourceFor(
@@ -271,7 +275,7 @@ public class WeatherParser {
             CSVRecord lowest = coldestHourInFile(fr.getCSVParser());
             System.out.println("Coldest temperature on that day was " + lowest.get("TemperatureF"));
             
-            System.out.println("All the temperatures on the coldest day were: ");
+            System.out.println("All the temperatures on the coldest file were: ");
             for(CSVRecord record : fr.getCSVParser()) {
                 System.out.println(record.get("DateUTC") + ": " + record.get("TemperatureF"));
             }
@@ -324,5 +328,27 @@ public class WeatherParser {
         }
         
         return lowestRecord;
+    }
+    
+    public double averageTemperatureWithinHighHumidityFile(CSVParser parser, int value) {
+        double avrg = 0.0;
+        int count = 0;
+        double totalTemp = 0.0;        
+        
+        for (CSVRecord record : parser) {
+            float currentHumidity = getFloatValueFrom(record, "Humidity");
+            
+            if (currentHumidity >= value) {
+                double currentTemp = Double.parseDouble(record.get("TemperatureF"));
+                totalTemp += currentTemp;
+                count++;
+            }
+        }
+        
+        if (count > 1) {
+            avrg = totalTemp / count;
+        }
+        
+        return avrg;
     }
 }

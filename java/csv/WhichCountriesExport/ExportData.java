@@ -45,9 +45,9 @@ public class ExportData {
         // System.out.println(countryInfo(fr.getCSVParser(), "Germany"));
         // System.out.println(countryInfo(fr.getCSVParser(), "United States"));
         // System.out.println(countryInfo(fr.getCSVParser(), "Nauru"));
-        // listExportersTwoProducts(fr.getCSVParser(), "gold", "diamonds");
+        // listExportersTwoProducts(fr.getCSVParser(), "cotton", "flowers");
         // listExportersTwoProducts(fr.getCSVParser(), "fish", "nuts");
-        // System.out.println(numberOfExporters(fr.getCSVParser(), "gold"));
+        // System.out.println(numberOfExporters(fr.getCSVParser(), "cocoa"));
         // System.out.println(numberOfExporters(fr.getCSVParser(), "sugar"));
         // bigExporters(fr.getCSVParser(), "$999,999,999");
         bigExporters(fr.getCSVParser(), "$999,999,999,999");
