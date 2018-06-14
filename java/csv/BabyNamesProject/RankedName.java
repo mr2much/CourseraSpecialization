@@ -7,21 +7,17 @@
  */
 public class RankedName {
     public String name;
-    public int year;
     public String sex;
     public int count;
     
     public String getName() { return name; }
     
-    public int getYear() { return year; }
-    
     public String getSex() { return sex; }
     
     public int getCount() { return count; }
     
-    public RankedName(String name, int year, String sex, int count) {
+    public RankedName(String name, String sex, int count) {
         this.name = name;
-        this.year = year;
         this.sex = sex;
         this.count = count;
     }

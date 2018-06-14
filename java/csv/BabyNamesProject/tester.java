@@ -17,20 +17,20 @@ public class tester {
     }
     
     public void testSameRankedNameSameSexEquality() {
-        RankedName jennifer = new RankedName("Jennifer", 1994, "F", 21);
-        assert jennifer.equals(new RankedName("Grace", 2014, "F", 21)) :
+        RankedName jennifer = new RankedName("Jennifer", "F", 21);
+        assert jennifer.equals(new RankedName("Grace", "F", 21)) :
             "Jennifer's rank should be equal to Grace's";
     }
     
     public void testSameRankedNameDifferentSexEquality() {
-        RankedName anubis = new RankedName("Anubis", 1982, "M", 21);
-        assert !anubis.equals(new RankedName("Jennifer", 1994, "F", 21)) :
+        RankedName anubis = new RankedName("Anubis", "M", 21);
+        assert !anubis.equals(new RankedName("Jennifer", "F", 21)) :
             "Should return false if sex are different";
     }
     
     public void testDifferentRankedNameSameSexEquality() {
-        RankedName jennifer = new RankedName("Jennifer", 1994, "F", 21);
-        assert !jennifer.equals(new RankedName("Jule", 1994, "F", 13)) :
+        RankedName jennifer = new RankedName("Jennifer", "F", 21);
+        assert !jennifer.equals(new RankedName("Jule", "F", 13)) :
             "Names should not be equal if ranks are different";
     }
     
