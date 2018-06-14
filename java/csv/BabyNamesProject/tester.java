@@ -8,6 +8,7 @@
 public class tester {
     
     public void performTests() {
+        testEquality();
         testSameRankedNameSameSexEquality();
         testSameRankedNameDifferentSexEquality();
         testDifferentRankedNameSameSexEquality();
@@ -16,6 +17,12 @@ public class tester {
         //testRankOfNameToday();
         
         System.out.println("Test finished.");
+    }
+    
+    public void testEquality() {
+        RankedName jennifer = new RankedName("Jennifer", "F", 21);
+        
+        assert jennifer.equals(jennifer);
     }
     
     public void testSameRankedNameSameSexEquality() {

@@ -26,14 +26,14 @@ public class RankedName implements Comparable<RankedName> {
     
     public RankedName(String name, String sex, Integer count) {
         this.name = name;
-        // TODO: setSex(Strgin sex);
         this.setGender(sex);
         this.count = count;
     }
     
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof RankedName)) { return false; }
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
         
         RankedName other = (RankedName) o;
         
