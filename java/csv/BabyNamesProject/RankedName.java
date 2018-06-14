@@ -6,9 +6,9 @@
  * @version (a version number or a date)
  */
 public class RankedName implements Comparable<RankedName> {
-    public String name;
-    public Gender gender;
-    public Integer count;
+    private String name;
+    private Gender gender;
+    private Integer count;
     
     public String getName() { return name; }
     
