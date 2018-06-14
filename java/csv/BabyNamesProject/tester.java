@@ -10,6 +10,7 @@ public class tester {
     public void performTests() {
         testSameRankedNameSameSexEquality();
         testSameRankedNameDifferentSexEquality();
+        testDifferentRankedNameSameSexEquality();
         //testRankOfNameToday();
         
         System.out.println("Test finished.");
@@ -25,6 +26,12 @@ public class tester {
         RankedName anubis = new RankedName("Anubis", 1982, "M", 21);
         assert !anubis.equals(new RankedName("Jennifer", 1994, "F", 21)) :
             "Should return false if sex are different";
+    }
+    
+    public void testDifferentRankedNameSameSexEquality() {
+        RankedName jennifer = new RankedName("Jennifer", 1994, "F", 21);
+        assert !jennifer.equals(new RankedName("Jule", 1994, "F", 13)) :
+            "Names should not be equal if ranks are different";
     }
     
     // public void testRankOfNameToday() {
