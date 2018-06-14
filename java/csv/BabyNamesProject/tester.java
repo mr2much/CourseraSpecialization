@@ -12,7 +12,7 @@ public class tester {
         testSameRankedNameDifferentSexEquality();
         testDifferentRankedNameSameSexEquality();
         testCompareToSameSex();
-        // testCompareToDifferentSex();
+        testCompareToDifferentSex();
         //testRankOfNameToday();
         
         System.out.println("Test finished.");

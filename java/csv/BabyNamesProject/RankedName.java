@@ -7,25 +7,27 @@
  */
 public class RankedName implements Comparable<RankedName> {
     public String name;
-    // TODO: implement sex as Enum instead of String
-    // TODO: implement setter for Sex that takes String and assigns
-    // Enum accordingly
-    /*
-     * Note: Only needs first letter of sex to assign 'F' or 'M'
-     */
-    public String sex;
+    public Gender gender;
     public Integer count;
     
     public String getName() { return name; }
     
-    public String getSex() { return sex; }
+    public void setGender(String sex) {
+        if (sex.startsWith("F")) {
+            this.gender = Gender.FEMALE;
+        } else if (sex.startsWith("M")) {
+            this.gender = Gender.MALE;
+        }
+    }
+    
+    public Gender getGender() { return gender; }
     
     public Integer getCount() { return count; }
     
     public RankedName(String name, String sex, Integer count) {
         this.name = name;
         // TODO: setSex(Strgin sex);
-        this.sex = sex;
+        this.setGender(sex);
         this.count = count;
     }
     
@@ -35,7 +37,8 @@ public class RankedName implements Comparable<RankedName> {
         
         RankedName other = (RankedName) o;
         
-        if (this.count == other.getCount() && this.sex.equals(other.getSex())) {
+        if (this.count == other.getCount() && 
+            this.gender.equals(other.getGender())) {
             return true;
         }
         
@@ -49,6 +52,16 @@ public class RankedName implements Comparable<RankedName> {
     
     @Override
     public int compareTo(RankedName otherName) {
+        Gender otherGender = otherName.getGender();
+        
+        if(!sexAreEqual(otherGender)) {
+            return this.gender.compareTo(otherGender);
+        }
+        
         return this.count.compareTo(otherName.getCount());
+    }
+    
+    private boolean sexAreEqual(Gender other) {
+        return this.gender == other;
     }
 }
