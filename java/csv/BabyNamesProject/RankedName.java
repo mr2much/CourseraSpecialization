@@ -7,6 +7,12 @@
  */
 public class RankedName implements Comparable<RankedName> {
     public String name;
+    // TODO: implement sex as Enum instead of String
+    // TODO: implement setter for Sex that takes String and assigns
+    // Enum accordingly
+    /*
+     * Note: Only needs first letter of sex to assign 'F' or 'M'
+     */
     public String sex;
     public Integer count;
     
@@ -18,6 +24,7 @@ public class RankedName implements Comparable<RankedName> {
     
     public RankedName(String name, String sex, Integer count) {
         this.name = name;
+        // TODO: setSex(Strgin sex);
         this.sex = sex;
         this.count = count;
     }
