@@ -55,17 +55,23 @@ public class NameListTester {
         
         int rank = namesList.rankByName("Erika", Gender.FEMALE);
         
-        assert rank == 2 : "Expected rank == 2, got " + rank;
+        assert rank == 4 : "Expected rank == 4, got " + rank;
         
         rank = namesList.rankByName("Grace", Gender.FEMALE);
         
-        assert rank == 5;
+        assert rank == 1;
         
         rank = namesList.rankByName("Clara", Gender.FEMALE);
         
         assert rank == -1;
         
         rank = namesList.rankByName("Anubis", Gender.MALE);
+        
+        assert rank == 1;
+        
+        RankedName bob = new RankedName("Bob", "M", 10);
+        
+        rank = namesList.rankByName("Bob", Gender.MALE);
         
         assert rank == 1;
     }

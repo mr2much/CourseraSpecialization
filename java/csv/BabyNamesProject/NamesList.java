@@ -33,15 +33,22 @@ public class NamesList {
     }
     
     public void insert(RankedName rankedName) {
-        List<RankedName> list = namesMap.get(rankedName.getGender());
-        
-        if (list == null) {
-            list = new ArrayList<>();
-        }
+        List<RankedName> list = getList(rankedName.getGender());
         
         list.add(rankedName);
         Collections.sort(list);
+        
         namesMap.put(rankedName.getGender(), list);
+    }
+    
+    public List<RankedName> getList(Gender gender) {
+        List<RankedName> list = namesMap.get(gender);
+        
+        if (list == null) {
+            return new ArrayList<RankedName>();
+        }
+        
+        return list;
     }
     
     public int rankByName(String name, Gender gender) {
