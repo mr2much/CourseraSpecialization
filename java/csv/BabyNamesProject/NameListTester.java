@@ -8,6 +8,7 @@
 public class NameListTester {
     public void performTests() {
         testInsertName();
+        testRankByName();
         System.out.println("Finished testing NamesList");
     }
     
@@ -31,7 +32,41 @@ public class NameListTester {
         
         namesList.insert(anubis);
         
-        assert namesList.totalBirths() == 3;
+        assert namesList.totalBirths() == 3 : 
+            "Expected 3, got " + namesList.totalBirths();
         assert namesList.totalMales() == 1;
+    }
+    
+    public void testRankByName() {
+        RankedName jennifer = new RankedName("Jennifer", "F", 1);
+        RankedName grace = new RankedName("Grace", "F", 5);
+        RankedName carol = new RankedName("Carol", "F", 3);
+        RankedName erika = new RankedName("Erika", "F", 2);
+        RankedName camila = new RankedName("Camila", "F", 4);
+        RankedName anubis = new RankedName("Anubis", "M", 1);
+        
+        NamesList namesList = new NamesList();
+        namesList.insert(jennifer);
+        namesList.insert(grace);
+        namesList.insert(carol);
+        namesList.insert(erika);
+        namesList.insert(camila);
+        namesList.insert(anubis);
+        
+        int rank = namesList.rankByName("Erika", Gender.FEMALE);
+        
+        assert rank == 2 : "Expected rank == 2, got " + rank;
+        
+        rank = namesList.rankByName("Grace", Gender.FEMALE);
+        
+        assert rank == 5;
+        
+        rank = namesList.rankByName("Clara", Gender.FEMALE);
+        
+        assert rank == -1;
+        
+        rank = namesList.rankByName("Anubis", Gender.MALE);
+        
+        assert rank == 1;
     }
 }

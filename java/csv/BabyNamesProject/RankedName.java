@@ -31,6 +31,11 @@ public class RankedName implements Comparable<RankedName> {
     }
     
     @Override
+    public String toString() {
+        return name + " " + gender + " " + count;
+    }
+    
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
