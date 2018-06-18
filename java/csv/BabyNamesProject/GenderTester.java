@@ -19,14 +19,14 @@ public class GenderTester {
         Gender female = Gender.FEMALE;
         Gender male = Gender.MALE;
         
-        assert female.compareTo(male) > 0 : "Female should be greater than Male";
+        assert female.compareTo(male) < 0 : "Female should come first than Male";
     }
     
     public void testMaleLessThanFemale() {
         Gender female = Gender.FEMALE;
         Gender male = Gender.MALE;
         
-        assert male.compareTo(female) < 0 : "Male should be less than Female";
+        assert male.compareTo(female) > 0 : "Male should come after Female";
     }
     
     public void testGenderEquality() {

@@ -25,6 +25,7 @@ public class tester {
         assert jennifer.equals(jennifer);
     }
     
+    // TODO: This should test if they have the same rank
     public void testSameRankedNameSameSexEquality() {
         RankedName jennifer = new RankedName("Jennifer", "F", 21);
         assert jennifer.equals(new RankedName("Grace", "F", 21)) :
