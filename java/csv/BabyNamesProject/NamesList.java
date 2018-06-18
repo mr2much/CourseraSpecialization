@@ -10,27 +10,28 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.Iterator;
 
-public class NamesList {
+public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> {
     Map<Gender, List<RankedName>> namesMap;
-    List<RankedName> allNames;
-    List<RankedName> femaleNames;
-    List<RankedName> maleNames;
+    // List<RankedName> allNames;
+    // List<RankedName> femaleNames;
+    // List<RankedName> maleNames;
     
     {
         namesMap = new HashMap<>();
-        allNames = new ArrayList<>();
-        femaleNames = new ArrayList<>();
-        maleNames = new ArrayList<>();
+        // allNames = new ArrayList<>();
+        // femaleNames = new ArrayList<>();
+        // maleNames = new ArrayList<>();
     }
     
-    public List<RankedName> getFemaleNames() {
-        return femaleNames;
-    }
+    // public List<RankedName> getFemaleNames() {
+        // return femaleNames;
+    // }
     
-    public List<RankedName> getMaleNames() {
-        return maleNames;
-    }
+    // public List<RankedName> getMaleNames() {
+        // return maleNames;
+    // }
     
     public void insert(RankedName rankedName) {
         List<RankedName> list = getList(rankedName.getGender());
@@ -90,5 +91,19 @@ public class NamesList {
     
     public int totalBirths() {
         return totalFemales() + totalMales();
+    }
+    
+    @Override
+    public Iterator<Map.Entry<Gender, List<RankedName>>> iterator() {
+        Iterator<Map.Entry<Gender, List<RankedName>>> it = namesMap.entrySet().iterator();
+        return it;
+    }
+    
+    public List<RankedName> getAll(Gender gender) {
+        if (namesMap.get(gender) != null) {
+            return namesMap.get(gender);
+        }
+        
+        return new ArrayList<RankedName>();
     }
 }

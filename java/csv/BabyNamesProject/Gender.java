@@ -6,6 +6,6 @@
  * @version (a version number or a date)
  */
 public enum Gender {
-    MALE,
-    FEMALE;
+    FEMALE,
+    MALE;
 }

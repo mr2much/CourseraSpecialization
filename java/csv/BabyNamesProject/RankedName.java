@@ -8,7 +8,7 @@
 public class RankedName implements Comparable<RankedName> {
     private String name;
     private Gender gender;
-    private Integer count;
+    private int count;
     
     public String getName() { return name; }
     
@@ -22,9 +22,9 @@ public class RankedName implements Comparable<RankedName> {
     
     public Gender getGender() { return gender; }
     
-    public Integer getCount() { return count; }
+    public int getCount() { return count; }
     
-    public RankedName(String name, String sex, Integer count) {
+    public RankedName(String name, String sex, int count) {
         this.name = name;
         this.setGender(sex);
         this.count = count;
@@ -63,7 +63,8 @@ public class RankedName implements Comparable<RankedName> {
             return this.gender.compareTo(otherGender);
         }
         
-        return this.count.compareTo(otherName.getCount());
+        return (this.count > otherName.getCount()) ? -1 :
+            this.count == otherName.getCount() ? 0 : 1;
     }
     
     private boolean sexAreEqual(Gender other) {

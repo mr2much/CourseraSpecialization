@@ -5,10 +5,14 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+
+import java.util.List;
+import java.util.Map;
 public class NameListTester {
     public void performTests() {
         testInsertName();
         testRankByName();
+        shouldThrowExceptionIfNamesAreNotAllFemale();
         System.out.println("Finished testing NamesList");
     }
     
@@ -71,8 +75,34 @@ public class NameListTester {
         
         RankedName bob = new RankedName("Bob", "M", 10);
         
+        namesList.insert(bob);
         rank = namesList.rankByName("Bob", Gender.MALE);
         
-        assert rank == 1;
+        assert rank == 1 : "Expected 1, got: " + rank;
+    }
+    
+    public void shouldThrowExceptionIfNamesAreNotAllFemale() {
+        NamesList namesList = new NamesList();
+        
+        RankedName jennifer = new RankedName("Jennifer", "F", 10);
+        RankedName grace = new RankedName("Grace", "F", 9);
+        RankedName anubis = new RankedName("Anubis", "M", 10);
+        
+        namesList.insert(jennifer);
+        namesList.insert(grace);
+        namesList.insert(anubis);
+        
+        List<RankedName> names = namesList.getAll(Gender.FEMALE);
+        
+        compare(names, new RankedName[] {new RankedName("Jennifer", "F", 10),
+            new RankedName("Grace", "F", 9)});
+    }
+    
+    private void compare(List<RankedName> namesList, RankedName[] namesArr) {
+        Object[] arr = namesList.toArray();
+        
+        for (int i = 0; i < arr.length; i++) {
+            assert arr[i].equals(namesArr[i]);
+        }
     }
 }
