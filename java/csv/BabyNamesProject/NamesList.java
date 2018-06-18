@@ -52,6 +52,17 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
         return list;
     }
     
+    public RankedName getNameByRank(int rank, Gender gender) {
+        List<RankedName> listToUse = namesMap.get(gender);
+        
+        RankedName name = null;
+        if (listToUse != null) {
+            name = listToUse.get(rank - 1);
+        }
+        
+        return name;
+    }
+    
     public int rankByName(String name, Gender gender) {
         List<RankedName> listToUse = namesMap.get(gender);
                 
@@ -59,6 +70,11 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
     }
     
     private int getRank(List<RankedName> names, String name) {
+        
+        if (names == null) {
+            return -1;
+        }
+        
         for (int i = 0; i < names.size(); i++) {
             RankedName rankedName = names.get(i);
             if (rankedName.getName().equals(name)) {

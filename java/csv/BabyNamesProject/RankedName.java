@@ -42,7 +42,8 @@ public class RankedName implements Comparable<RankedName> {
         
         RankedName other = (RankedName) o;
         
-        if (this.count == other.getCount() && 
+        if (this.name.equals(other.getName()) && 
+            this.count == other.getCount() && 
             this.gender.equals(other.getGender())) {
             return true;
         }

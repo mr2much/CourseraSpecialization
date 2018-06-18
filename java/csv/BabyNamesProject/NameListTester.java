@@ -11,8 +11,11 @@ import java.util.Map;
 public class NameListTester {
     public void performTests() {
         testInsertName();
+        getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound();
         testRankByName();
-        shouldThrowExceptionIfNamesAreNotAllFemale();
+        shouldThrowExceptionIfNamesAreNotAllOfTheSameSex();
+        getNameByRankShouldReturnNullOnEmptyListOrNameNotFound();
+        getNameByRankShouldReturnNameRepresentedByGivenRank();
         System.out.println("Finished testing NamesList");
     }
     
@@ -39,6 +42,14 @@ public class NameListTester {
         assert namesList.totalBirths() == 3 : 
             "Expected 3, got " + namesList.totalBirths();
         assert namesList.totalMales() == 1;
+    }
+    
+    public void getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound() {
+        NamesList namesList = new NamesList();
+        
+        int rank = namesList.rankByName("Anubis", Gender.MALE);
+        
+        assert rank == -1;
     }
     
     public void testRankByName() {
@@ -81,7 +92,7 @@ public class NameListTester {
         assert rank == 1 : "Expected 1, got: " + rank;
     }
     
-    public void shouldThrowExceptionIfNamesAreNotAllFemale() {
+    public void shouldThrowExceptionIfNamesAreNotAllOfTheSameSex() {
         NamesList namesList = new NamesList();
         
         RankedName jennifer = new RankedName("Jennifer", "F", 10);
@@ -104,5 +115,32 @@ public class NameListTester {
         for (int i = 0; i < arr.length; i++) {
             assert arr[i].equals(namesArr[i]);
         }
+    }
+    
+    public void getNameByRankShouldReturnNullOnEmptyListOrNameNotFound() {
+        NamesList namesList = new NamesList();
+        RankedName anubis = namesList.getNameByRank(1, Gender.MALE);
+        
+        assert anubis == null;
+    }
+    
+    public void getNameByRankShouldReturnNameRepresentedByGivenRank() {
+        NamesList namesList = new NamesList();
+        
+        RankedName anubis = new RankedName("Anubis", "M", 10);
+        RankedName bob = new RankedName("Bob", "M", 5);
+        RankedName richard = new RankedName("Richard", "M", 1);
+        
+        namesList.insert(richard);
+        namesList.insert(anubis);
+        namesList.insert(bob);
+        
+        RankedName name = namesList.getNameByRank(3, Gender.MALE);
+        
+        assert name.equals(richard);
+        
+        name = namesList.getNameByRank(1, Gender.MALE);
+        
+        assert name.equals(anubis);
     }
 }
