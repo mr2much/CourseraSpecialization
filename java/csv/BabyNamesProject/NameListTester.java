@@ -8,11 +8,13 @@
 
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 public class NameListTester {
     public void performTests() {
         testInsertName();
         getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound();
         testRankByName();
+        shouldThrowExceptionIfAllGenderAndNamesAreNotPresent();
         shouldThrowExceptionIfNamesAreNotAllOfTheSameSex();
         getNameByRankShouldReturnNullOnEmptyListOrNameNotFound();
         getNameByRankShouldReturnNameRepresentedByGivenRank();
@@ -90,6 +92,34 @@ public class NameListTester {
         rank = namesList.rankByName("Bob", Gender.MALE);
         
         assert rank == 1 : "Expected 1, got: " + rank;
+    }
+    
+    public void shouldThrowExceptionIfAllGenderAndNamesAreNotPresent() {
+        NamesList namesList = new NamesList();
+        
+        RankedName jennifer = new RankedName("Jennifer", "F", 10);
+        RankedName carla = new RankedName("Carla", "F", 5);
+        RankedName anubis = new RankedName("Anubis", "M", 10);
+        RankedName bob = new RankedName("Bob", "M", 5);
+        
+        namesList.insert(jennifer);
+        namesList.insert(carla);
+        namesList.insert(anubis);
+        namesList.insert(bob);
+        
+        Iterator<Map.Entry<Gender, List<RankedName>>> entries = 
+            namesList.iterator();
+        Map.Entry<Gender, List<RankedName>> entry = entries.next();
+        
+        assert entry.getKey() == Gender.FEMALE;
+        
+        compare(entry.getValue(), new RankedName[]{jennifer, carla});
+        
+        entry = entries.next();
+        
+        assert entry.getKey() == Gender.MALE;
+        
+        compare(entry.getValue(), new RankedName[] {anubis, bob});
     }
     
     public void shouldThrowExceptionIfNamesAreNotAllOfTheSameSex() {
