@@ -1,10 +1,11 @@
- 
+package tests;
 /**
  * Write a description of tester here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
+import src.RankedName;
 
 public class tester {
     

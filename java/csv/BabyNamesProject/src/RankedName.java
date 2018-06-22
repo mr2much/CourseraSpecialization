@@ -1,10 +1,13 @@
-
+package src;
 /**
  * Write a description of RankedName here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
+
+import src.Gender;
+
 public class RankedName implements Comparable<RankedName> {
     private String name;
     private Gender gender;

@@ -1,4 +1,4 @@
-    
+package tests; 
 /**
  * Write a description of NameListTester here.
  * 
@@ -9,7 +9,9 @@
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
-
+import src.NamesList;
+import src.RankedName;
+import src.Gender;
 public class NameListTester {
     public void performTests() {
         testInsertName();

@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Iterator;
+import src.RankedName;
+import src.Gender;
 
 public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> {
     Map<Gender, List<RankedName>> namesMap;
