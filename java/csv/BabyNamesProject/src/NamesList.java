@@ -34,6 +34,10 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
     // public List<RankedName> getMaleNames() {
         // return maleNames;
     // }
+    public void insert(String csvString) {
+        RankedName emma = new RankedName("Emma", "F", 500);
+        insert(emma);
+    }
     
     public void insert(RankedName rankedName) {
         List<RankedName> list = getList(rankedName.getGender());

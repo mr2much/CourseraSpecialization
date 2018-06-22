@@ -12,9 +12,11 @@ import java.util.Iterator;
 import src.NamesList;
 import src.RankedName;
 import src.Gender;
+
 public class NameListTester {
     public void performTests() {
         testInsertName();
+        shouldInsertRankedNameFromCSVString();
         getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound();
         testRankByName();
         shouldThrowExceptionIfAllGenderAndNamesAreNotPresent();
@@ -47,6 +49,13 @@ public class NameListTester {
         assert namesList.totalBirths() == 3 : 
             "Expected 3, got " + namesList.totalBirths();
         assert namesList.totalMales() == 1;
+    }
+    
+    public void shouldInsertRankedNameFromCSVString() {
+        NamesList namesList = new NamesList();
+        namesList.insert("Emma,F,500");
+        
+        assert namesList.totalBirths() == 1;
     }
     
     public void getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound() {
