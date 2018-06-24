@@ -127,15 +127,16 @@ public class NameListTester {
             namesList.iterator();
         Map.Entry<Gender, List<RankedName>> entry = entries.next();
         
-        assert entry.getKey() == Gender.FEMALE;
+        assert entry.getKey() == Gender.MALE : "" + entry.getKey();
         
-        compare(entry.getValue(), new RankedName[]{jennifer, carla});
+        compare(entry.getValue(), new RankedName[] {anubis, bob});
         
         entry = entries.next();
         
-        assert entry.getKey() == Gender.MALE;
+        assert entry.getKey() == Gender.FEMALE : "" + entry.getKey();
         
-        compare(entry.getValue(), new RankedName[] {anubis, bob});
+        compare(entry.getValue(), new RankedName[]{jennifer, carla});
+        
     }
     
     public void shouldThrowExceptionIfNamesAreNotAllOfTheSameSex() {

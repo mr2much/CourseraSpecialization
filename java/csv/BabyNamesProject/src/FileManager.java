@@ -21,8 +21,15 @@ public class FileManager {
     public static String DECADE_PATH = "us_babynames_by_decade";
     public static String YEAR_PATH = "us_babynames_by_year";
  
-    public CSVParser getCSVParser(String pattern, int year) {
-        String filename = String.format(pattern, year);
+    String filename;
+    
+    public void setFilename(String filename) { this.filename = filename; }
+    public String getFilename() { return filename; }
+    
+    public FileManager() { }
+    
+    public CSVParser getCSVParser() {
+        // String filename = String.format(pattern, year);
         FileResource fr = new FileResource(Paths.get(filename).toString());
         
         return fr.getCSVParser(false);

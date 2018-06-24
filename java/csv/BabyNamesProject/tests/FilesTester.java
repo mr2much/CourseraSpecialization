@@ -75,7 +75,8 @@ public class FilesTester {
         FileManager fm = new FileManager();
         
         String pattern = "res/us_babynames_test/yob%dshort.csv";
-        CSVParser parser = fm.getCSVParser(pattern, 2012);
+        fm.setFilename(String.format(pattern, 2012));
+        CSVParser parser = fm.getCSVParser();
         NamesList namesList = fm.getNamesListFrom(parser);
         
         List<RankedName> females = namesList.getAll(Gender.FEMALE);
@@ -136,7 +137,8 @@ public class FilesTester {
         FileManager fm = new FileManager();
         
         String pattern = "res/us_babynames_test/yob%dshort.csv";
-        CSVParser parser = fm.getCSVParser(pattern, 2012);
+        fm.setFilename(String.format(pattern, 2012));
+        CSVParser parser = fm.getCSVParser();
         NamesList namesList = fm.getNamesListFrom(parser);
         
         List<RankedName> females = namesList.getAll(Gender.FEMALE);
