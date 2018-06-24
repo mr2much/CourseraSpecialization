@@ -22,8 +22,10 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
     }
     
     public void insert(String csvString) {
-        RankedName emma = new RankedName("Emma", "F", 500);
-        insert(emma);
+        String[] nameInfo = csvString.split(",");
+        RankedName rankedName = new RankedName(nameInfo[0], nameInfo[1], 
+            Integer.parseInt(nameInfo[2]));
+        insert(rankedName);
     }
     
     public void insert(RankedName rankedName) {

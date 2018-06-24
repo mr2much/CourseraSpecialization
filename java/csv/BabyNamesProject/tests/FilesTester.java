@@ -14,6 +14,7 @@ import src.Gender;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import org.apache.commons.csv.CSVParser;
 
 public class FilesTester {
     public void performTests() {
@@ -22,6 +23,7 @@ public class FilesTester {
         shouldThrowErrorIfLinesAreNotEqual();
         testLoadingAllFemalesFromExampleCSVFile();
         testLoadingAllMalesFromExampleCSVFile();
+        testLoadingAllNamesFromExampleCSVFileUsingCSVParser();
         System.out.println("Tests finished.");
     }
     
@@ -114,10 +116,17 @@ public class FilesTester {
         }
     }
     
+    public void testLoadingAllNamesFromExampleCSVFileUsingCSVParser() {
+        FileManager fm = new FileManager();
+        
+        CSVParser parser = fm.getCSVParser("res/us_babynames_test", 2012);
+        
+    }
+    
     private void compare(List<RankedName> namesList, RankedName[] namesArr) {
         Object[] arr = namesList.toArray();
         
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < namesArr.length; i++) {
             assert arr[i].equals(namesArr[i]);
         }
     }

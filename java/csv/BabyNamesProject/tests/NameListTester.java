@@ -127,8 +127,7 @@ public class NameListTester {
             namesList.iterator();
         Map.Entry<Gender, List<RankedName>> entry = entries.next();
         
-        assert entry.getKey() == Gender.FEMALE : "Value of getKey(): " + 
-            entry.getKey();
+        assert entry.getKey() == Gender.FEMALE;
         
         compare(entry.getValue(), new RankedName[]{jennifer, carla});
         
