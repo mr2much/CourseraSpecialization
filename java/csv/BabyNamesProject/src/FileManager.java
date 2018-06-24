@@ -14,14 +14,15 @@ import java.util.List;
 import java.util.ArrayList;
 import edu.duke.FileResource;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 public class FileManager {
     public static String RESOURCE_PATH = "res";
     public static String DECADE_PATH = "us_babynames_by_decade";
     public static String YEAR_PATH = "us_babynames_by_year";
  
-    public CSVParser getCSVParser(String rootDir, int year) {
-        String filename = String.format("%s/yob%dshort.csv", rootDir, year);
+    public CSVParser getCSVParser(String pattern, int year) {
+        String filename = String.format(pattern, year);
         FileResource fr = new FileResource(Paths.get(filename).toString());
         
         return fr.getCSVParser(false);
@@ -40,6 +41,20 @@ public class FileManager {
         
         for (String line : fileInfo) {
             namesList.insert(line);
+        }
+        
+        return namesList;
+    }
+    
+    public NamesList getNamesListFrom(CSVParser parser) {
+        NamesList namesList = new NamesList();
+        
+        for (CSVRecord record : parser) {
+            String name = record.get(0);
+            String gender = record.get(1);
+            int count = Integer.parseInt(record.get(2));
+            
+            namesList.insert(new RankedName(name, gender, count));
         }
         
         return namesList;

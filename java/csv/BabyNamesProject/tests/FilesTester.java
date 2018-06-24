@@ -119,15 +119,35 @@ public class FilesTester {
     public void testLoadingAllNamesFromExampleCSVFileUsingCSVParser() {
         FileManager fm = new FileManager();
         
-        CSVParser parser = fm.getCSVParser("res/us_babynames_test", 2012);
+        String pattern = "res/us_babynames_test/yob%dshort.csv";
+        CSVParser parser = fm.getCSVParser(pattern, 2012);
+        NamesList namesList = fm.getNamesListFrom(parser);
         
+        List<RankedName> females = namesList.getAll(Gender.FEMALE);
+        List<RankedName> males = namesList.getAll(Gender.MALE);
+        
+        compare(females, new RankedName[] {
+            new RankedName("Sophia", "F", 10),            
+            new RankedName("Emma", "F", 9),
+            new RankedName("Isabella", "F", 8),
+            new RankedName("Olivia", "F", 7),
+            new RankedName("Ava", "F", 6)});
+            
+        compare(males, new RankedName[] {
+            new RankedName("Jacob", "M", 8),            
+            new RankedName("Mason", "M", 7),
+            new RankedName("Ethan", "M", 7),
+            new RankedName("Noah", "M", 6),
+            new RankedName("William", "M", 5)});
+            
     }
     
     private void compare(List<RankedName> namesList, RankedName[] namesArr) {
         Object[] arr = namesList.toArray();
         
         for (int i = 0; i < namesArr.length; i++) {
-            assert arr[i].equals(namesArr[i]);
+            assert arr[i].equals(namesArr[i]) : "Values: " + 
+                arr[i] + " != " + namesArr[i];
         }
     }
     
