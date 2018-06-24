@@ -56,6 +56,10 @@ public class NameListTester {
         namesList.insert("Emma,F,500");
         
         assert namesList.totalBirths() == 1;
+        
+        List<RankedName> names = namesList.getAll(Gender.FEMALE);
+        
+        compare(names, new RankedName[] {new RankedName("Emma", "F", 500)});
     }
     
     public void getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound() {
@@ -123,7 +127,8 @@ public class NameListTester {
             namesList.iterator();
         Map.Entry<Gender, List<RankedName>> entry = entries.next();
         
-        assert entry.getKey() == Gender.FEMALE;
+        assert entry.getKey() == Gender.FEMALE : "Value of getKey(): " + 
+            entry.getKey();
         
         compare(entry.getValue(), new RankedName[]{jennifer, carla});
         
