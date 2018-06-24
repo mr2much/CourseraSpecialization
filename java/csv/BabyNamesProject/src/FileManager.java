@@ -25,6 +25,10 @@ public class FileManager {
         return new ArrayList<String>();
     }
     
+    public NamesList getNamesListFrom(List<String> fileInfo) {
+        return new NamesList();
+    }
+    
     public boolean pathExists(Path path) {
         return Files.exists(path);
     }

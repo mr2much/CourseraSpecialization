@@ -8,6 +8,9 @@ package tests;
  * @version (a version number or a date)
  */
 import src.FileManager;
+import src.NamesList;
+import src.RankedName;
+import src.Gender;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -17,6 +20,8 @@ public class FilesTester {
         shouldFailIfPathDoesntExist();
         fileShouldHaveTenLines();
         shouldThrowErrorIfLinesAreNotEqual();
+        testLoadingAllFemalesFromExampleCSVFile();
+        testLoadingAllMalesFromExampleCSVFile();
         System.out.println("Tests finished.");
     }
     
@@ -62,4 +67,59 @@ public class FilesTester {
             assert arr[i].equals(namesArr[i]);
         }
     }
+    
+    public void testLoadingAllFemalesFromExampleCSVFile() {
+        FileManager fm = new FileManager();
+        
+        try {
+            List<String> fileInfo = fm.readAllLines(
+                Paths.get("res", "example-small.csv"));
+            
+            NamesList nl = fm.getNamesListFrom(fileInfo);
+            
+            List<RankedName> females = nl.getAll(Gender.FEMALE);
+            
+            compare(females, new RankedName[] {
+                new RankedName("Emma", "F", 500), 
+                new RankedName("Olivia", "F", 400),
+                new RankedName("Sophia", "F", 300),
+                new RankedName("Isabella", "F", 200),
+                new RankedName("Ava", "F", 100)});
+        } catch (IOException ex) {
+            System.out.println("<" + ex.getClass().getSimpleName() +
+                "> - " + ex.getMessage());
+        }
+    }
+    
+    public void testLoadingAllMalesFromExampleCSVFile() {
+        FileManager fm = new FileManager();
+        
+        try {
+            List<String> fileInfo = fm.readAllLines(
+                Paths.get("res", "example-small.csv"));
+            
+            NamesList nl = fm.getNamesListFrom(fileInfo);
+            
+            List<RankedName> males = nl.getAll(Gender.MALE);
+            
+            compare(males, new RankedName[] {
+                new RankedName("Noah", "M", 100), 
+                new RankedName("Liam", "M", 40),
+                new RankedName("Mason", "M", 30),
+                new RankedName("Jacob", "M", 20),
+                new RankedName("William", "M", 10)});
+        } catch (IOException ex) {
+            System.out.println("<" + ex.getClass().getSimpleName() +
+                "> - " + ex.getMessage());
+        }
+    }
+    
+    private void compare(List<RankedName> namesList, RankedName[] namesArr) {
+        Object[] arr = namesList.toArray();
+        
+        for (int i = 0; i < arr.length; i++) {
+            assert arr[i].equals(namesArr[i]);
+        }
+    }
+    
 }
