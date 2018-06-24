@@ -17,6 +17,7 @@ public class ListByYearTester {
     public void performTests() {
         shouldLoadTestFileFor2012();
         masonShouldBeRankTwoIn2012();
+        nameShouldBeOliviaIn2012ForRank4();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -65,5 +66,15 @@ public class ListByYearTester {
         rank = listYear.getRank(2012, "Mason", Gender.FEMALE);
         
         assert rank == -1;
+    }
+    
+    public void nameShouldBeOliviaIn2012ForRank4() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        
+        RankedName name = listYear.getName(2012, 4, Gender.FEMALE);
+        
+        assert name.equals(new RankedName("Olivia", "F", 7));
     }
 }

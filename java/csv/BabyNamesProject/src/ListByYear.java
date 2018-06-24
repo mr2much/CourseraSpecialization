@@ -52,4 +52,15 @@ public class ListByYear {
         
         return -1;
     }
+    
+    public RankedName getName(int year, int rank, Gender gender) {
+        Integer key = new Integer(year);
+        
+        if (mapByYear.containsKey(key)) {
+            NamesList nl = mapByYear.get(key);
+            return nl.getNameByRank(rank, gender);
+        }
+        
+        return new RankedName("NO NAME", "M", 0);
+    }
 }
