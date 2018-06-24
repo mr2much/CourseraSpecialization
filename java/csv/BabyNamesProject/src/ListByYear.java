@@ -26,17 +26,30 @@ public class ListByYear {
         fileManager.setFilename(String.format(pattern, year));
         CSVParser parser = fileManager.getCSVParser();
         NamesList namesList = fileManager.getNamesListFrom(parser);
+        
+        mapByYear.put(new Integer(year), namesList);
     }
     
     public NamesList getListForYear(int year) {
-        NamesList nl = new NamesList();
+        NamesList nl = null;
         
-        nl.insert(new RankedName("Sophia", "F", 10));
-        nl.insert(new RankedName("Emma", "F", 9));
-        nl.insert(new RankedName("Isabella", "F", 8));
-        nl.insert(new RankedName("Olivia", "F", 7));
-        nl.insert(new RankedName("Ava", "F", 6));
+        Integer key = new Integer(year);
+        
+        if (mapByYear.containsKey(key)) {
+            return mapByYear.get(key);
+        }
         
         return nl;
+    }
+    
+    public int getRank(int year, String name, Gender gender) {
+        Integer key = new Integer(year);
+        
+        if (mapByYear.containsKey(key)) {
+            NamesList nl = mapByYear.get(key);
+            return nl.rankByName(name, gender);
+        }
+        
+        return -1;
     }
 }

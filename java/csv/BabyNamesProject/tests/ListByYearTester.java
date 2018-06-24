@@ -16,6 +16,7 @@ import java.util.List;
 public class ListByYearTester {
     public void performTests() {
         shouldLoadTestFileFor2012();
+        masonShouldBeRankTwoIn2012();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -33,6 +34,15 @@ public class ListByYearTester {
             new RankedName("Isabella", "F", 8),
             new RankedName("Olivia", "F", 7),
             new RankedName("Ava", "F", 6)});
+        
+        List<RankedName> males = listOf2012.getAll(Gender.MALE);
+        
+        compare(males, new RankedName[]{
+            new RankedName("Jacob", "M", 8),
+            new RankedName("Mason", "M", 7),
+            new RankedName("Ethan", "M", 7),
+            new RankedName("Noah", "M", 6),
+            new RankedName("William", "M", 5)});
     }
     
     private void compare(List<RankedName> namesList, RankedName[] namesArr) {
@@ -44,4 +54,16 @@ public class ListByYearTester {
         }
     }
     
+    public void masonShouldBeRankTwoIn2012() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        int rank = listYear.getRank(2012, "Mason", Gender.MALE);
+        
+        assert rank == 2;
+        
+        rank = listYear.getRank(2012, "Mason", Gender.FEMALE);
+        
+        assert rank == -1;
+    }
 }

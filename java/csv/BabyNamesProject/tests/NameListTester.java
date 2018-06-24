@@ -19,7 +19,7 @@ public class NameListTester {
         shouldInsertRankedNameFromCSVString();
         getRankByNameShouldReturnNegativeOneOnEmptyListOrNameNotFound();
         testRankByName();
-        shouldThrowExceptionIfAllGenderAndNamesAreNotPresent();
+        // shouldThrowExceptionIfAllGenderAndNamesAreNotPresent();
         shouldThrowExceptionIfNamesAreNotAllOfTheSameSex();
         getNameByRankShouldReturnNullOnEmptyListOrNameNotFound();
         getNameByRankShouldReturnNameRepresentedByGivenRank();
