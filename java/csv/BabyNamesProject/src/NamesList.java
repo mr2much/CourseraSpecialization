@@ -16,24 +16,11 @@ import src.Gender;
 
 public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> {
     Map<Gender, List<RankedName>> namesMap;
-    // List<RankedName> allNames;
-    // List<RankedName> femaleNames;
-    // List<RankedName> maleNames;
     
     {
         namesMap = new HashMap<>();
-        // allNames = new ArrayList<>();
-        // femaleNames = new ArrayList<>();
-        // maleNames = new ArrayList<>();
     }
     
-    // public List<RankedName> getFemaleNames() {
-        // return femaleNames;
-    // }
-    
-    // public List<RankedName> getMaleNames() {
-        // return maleNames;
-    // }
     public void insert(String csvString) {
         RankedName emma = new RankedName("Emma", "F", 500);
         insert(emma);
