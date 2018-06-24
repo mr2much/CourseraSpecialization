@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import src.RankedName;
 import src.Gender;
+import org.apache.commons.csv.CSVRecord;
 
 public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> {
     Map<Gender, List<RankedName>> namesMap;
@@ -26,6 +27,14 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
         RankedName rankedName = new RankedName(nameInfo[0], nameInfo[1], 
             Integer.parseInt(nameInfo[2]));
         insert(rankedName);
+    }
+    
+    public void insert(CSVRecord record) {
+        String name = record.get(0);
+        String gender = record.get(1);
+        int count = Integer.parseInt(record.get(2));
+        
+        insert(new RankedName(name, gender, count));
     }
     
     public void insert(RankedName rankedName) {

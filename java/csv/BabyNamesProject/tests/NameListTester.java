@@ -23,7 +23,7 @@ public class NameListTester {
         shouldThrowExceptionIfNamesAreNotAllOfTheSameSex();
         getNameByRankShouldReturnNullOnEmptyListOrNameNotFound();
         getNameByRankShouldReturnNameRepresentedByGivenRank();
-        System.out.println("Finished testing NamesList");
+        System.out.println("NamesList - Test finished.");
     }
     
     public void testInsertName() {

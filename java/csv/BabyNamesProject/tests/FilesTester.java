@@ -21,10 +21,11 @@ public class FilesTester {
         shouldFailIfPathDoesntExist();
         fileShouldHaveTenLines();
         shouldThrowErrorIfLinesAreNotEqual();
+        testTotalBirthsInFile();
         testLoadingAllFemalesFromExampleCSVFile();
         testLoadingAllMalesFromExampleCSVFile();
         testLoadingAllNamesFromExampleCSVFileUsingCSVParser();
-        System.out.println("Tests finished.");
+        System.out.println("FileManager - Tests finished.");
     }
     
     public void shouldFailIfPathDoesntExist() {
@@ -68,6 +69,21 @@ public class FilesTester {
         for (int i = 0; i < arr.length; i++) {
             assert arr[i].equals(namesArr[i]);
         }
+    }
+
+    public void testTotalBirthsInFile() {
+        FileManager fm = new FileManager();
+        
+        String pattern = "res/us_babynames_test/yob%dshort.csv";
+        CSVParser parser = fm.getCSVParser(pattern, 2012);
+        NamesList namesList = fm.getNamesListFrom(parser);
+        
+        List<RankedName> females = namesList.getAll(Gender.FEMALE);
+        List<RankedName> males = namesList.getAll(Gender.MALE);
+        
+        assert namesList.totalFemales() == 5;
+        assert namesList.totalMales() == 5;
+        assert namesList.totalBirths() == 10;
     }
     
     public void testLoadingAllFemalesFromExampleCSVFile() {

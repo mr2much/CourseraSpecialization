@@ -8,6 +8,17 @@ package tests;
 import src.RankedName;
 
 public class tester {
+    GenderTester genderTester;
+    NameListTester nameListTester;
+    FilesTester filesTester;
+    ListByYearTester listByYearTester;
+    
+    {
+        genderTester = new GenderTester();
+        nameListTester = new NameListTester();
+        filesTester = new FilesTester();
+        listByYearTester = new ListByYearTester();
+    }
     
     public void performTests() {
         testEquality();
@@ -16,6 +27,10 @@ public class tester {
         testDifferentRankedNameSameSexEquality();
         testCompareToSameSex();
         testCompareToDifferentSex();
+        genderTester.performTests();
+        nameListTester.performTests();
+        filesTester.performTests();
+        listByYearTester.performTests();
         //testRankOfNameToday();
         
         System.out.println("Test finished.");
@@ -30,12 +45,10 @@ public class tester {
     // TODO: This should test if they have the same rank
     public void testSameRankedNameSameSexEquality() {
         RankedName jennifer = new RankedName("Jennifer", "F", 21);
-        assert jennifer.equals(new RankedName("Grace", "F", 21)) :
+        RankedName grace = new RankedName("Grace", "F", 21);
+        
+        assert jennifer.getCount() == grace.getCount() :
             "Jennifer's rank should be equal to Grace's";
-        assert jennifer.equals(new RankedName("Erica", "F", 21));
-        assert jennifer.equals(new RankedName("Barbara", "F", 21));
-        assert jennifer.equals(new RankedName("Crystal", "F", 21));
-        assert jennifer.equals(new RankedName("Alexandra", "F", 21));
     }
     
     public void testSameRankedNameDifferentSexEquality() {
@@ -57,9 +70,9 @@ public class tester {
        RankedName anubis = new RankedName("Anubis", "M", 99);
        RankedName erica = new RankedName("Erica", "F", 21);
        
-       assert jennifer.compareTo(barbara) > 0 : 
+       assert jennifer.compareTo(barbara) < 0 : 
         "Jennifer ranks higher than Barbara";
-       assert jennifer.compareTo(crystal) < 0 :
+       assert jennifer.compareTo(crystal) > 0 :
         "Jennifer ranks lower than Crystal";
        assert jennifer.compareTo(erica) == 0 :
         "Jennifer ranks equal to Erica";
@@ -69,9 +82,9 @@ public class tester {
         RankedName jennifer = new RankedName("Jennifer", "F", 21);
         RankedName anubis = new RankedName("Anubis", "M", Integer.MAX_VALUE);
         
-        assert jennifer.compareTo(anubis) > 0 :
+        assert jennifer.compareTo(anubis) < 0 :
             "Female names have to rank higher than Male names";
-        assert anubis.compareTo(jennifer) < 0 :
+        assert anubis.compareTo(jennifer) > 0 :
             "Male names have to rank lower than Female names";
     }
     

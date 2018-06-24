@@ -14,7 +14,7 @@ public class GenderTester {
         testGenderEquality();
         testGendersAreDifferent();
         
-        System.out.println("Gender tests finished.");
+        System.out.println("Gender -  Tests finished.");
     }
     
     public void testFemaleGreaterThanMale() {

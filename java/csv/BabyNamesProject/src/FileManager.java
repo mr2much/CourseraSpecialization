@@ -50,11 +50,7 @@ public class FileManager {
         NamesList namesList = new NamesList();
         
         for (CSVRecord record : parser) {
-            String name = record.get(0);
-            String gender = record.get(1);
-            int count = Integer.parseInt(record.get(2));
-            
-            namesList.insert(new RankedName(name, gender, count));
+            namesList.insert(record);
         }
         
         return namesList;
