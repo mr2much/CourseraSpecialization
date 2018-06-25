@@ -19,6 +19,8 @@ public class ListByYearTester {
         masonShouldBeRankTwoIn2012();
         nameShouldBeOliviaIn2012ForRank4();
         nameShouldBeNONAMEIfItDoesntExist();
+        nameIsabellaIn2012ShouldBeSophiaIn2014();
+        nameInYearShouldReturnNullIfNoMatchFound();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -87,5 +89,30 @@ public class ListByYearTester {
         RankedName name = listYear.getName(2012, 10, Gender.FEMALE);
         
         assert name.getName().equals("NO NAME");
+    }
+    
+    public void nameIsabellaIn2012ShouldBeSophiaIn2014() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        listYear.loadListForYear(2014);
+        
+        RankedName name = listYear.whatIsNameInYear("Isabella", 2012, 2014,
+            Gender.FEMALE);
+        
+        assert name.equals(new RankedName("Sophia", "F", 4));
+
+    }
+    
+    public void nameInYearShouldReturnNullIfNoMatchFound() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        listYear.loadListForYear(2014);
+        
+        RankedName name = listYear.whatIsNameInYear("Anubis", 2012, 2014,
+            Gender.MALE);
+           
+        assert name.equals(new RankedName("NO NAME", "M", 0));
     }
 }

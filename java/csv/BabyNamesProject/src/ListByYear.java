@@ -68,4 +68,15 @@ public class ListByYear {
         
         return new RankedName("NO NAME", "M", 0);
     }
+    
+    public RankedName whatIsNameInYear(String name, int year, int newYear, 
+        Gender gender) {
+        RankedName rankedName = null;
+        
+        int rank = getRank(year, name, gender);
+        
+        rankedName = getName(newYear, rank, gender);
+        
+        return rankedName;
+    }
 }
