@@ -61,7 +61,9 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
         
         RankedName name = null;
         if (listToUse != null) {
-            name = listToUse.get(rank - 1);
+            if((rank > 0) && (rank <= listToUse.size())) {
+                name = listToUse.get(rank - 1);
+            }
         }
         
         return name;

@@ -18,6 +18,7 @@ public class ListByYearTester {
         shouldLoadTestFileFor2012();
         masonShouldBeRankTwoIn2012();
         nameShouldBeOliviaIn2012ForRank4();
+        nameShouldBeNONAMEIfItDoesntExist();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -76,5 +77,15 @@ public class ListByYearTester {
         RankedName name = listYear.getName(2012, 4, Gender.FEMALE);
         
         assert name.equals(new RankedName("Olivia", "F", 7));
+    }
+    
+    public void nameShouldBeNONAMEIfItDoesntExist() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        
+        RankedName name = listYear.getName(2012, 10, Gender.FEMALE);
+        
+        assert name.getName().equals("NO NAME");
     }
 }
