@@ -21,6 +21,8 @@ public class ListByYearTester {
         nameShouldBeNONAMEIfItDoesntExist();
         nameIsabellaIn2012ShouldBeSophiaIn2014();
         nameInYearShouldReturnNullIfNoMatchFound();
+        highestRankOfMasonShouldBeInYear2012();
+        yearOfHighestRankShouldBeNegativeOneIfNameNotExist();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -114,5 +116,29 @@ public class ListByYearTester {
             Gender.MALE);
            
         assert name.equals(new RankedName("NO NAME", "M", 0));
+    }
+    
+    public void highestRankOfMasonShouldBeInYear2012() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        listYear.loadListForYear(2013);
+        listYear.loadListForYear(2014);
+        
+        int year = listYear.yearOfHighestRank("Mason", Gender.MALE);
+        
+        assert year == 2012 : "Value: " + year;
+    }
+    
+    public void yearOfHighestRankShouldBeNegativeOneIfNameNotExist() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        listYear.loadListForYear(2013);
+        listYear.loadListForYear(2014);
+        
+        int year = listYear.yearOfHighestRank("Anubis", Gender.MALE);
+        
+        assert year == -1 : "Value: " + year;
     }
 }

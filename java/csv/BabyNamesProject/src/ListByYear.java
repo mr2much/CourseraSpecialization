@@ -10,6 +10,8 @@ package src;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.csv.CSVParser;
 
 public class ListByYear {
@@ -78,5 +80,27 @@ public class ListByYear {
         rankedName = getName(newYear, rank, gender);
         
         return rankedName;
+    }
+    
+    public int yearOfHighestRank(String name, Gender gender) {
+        int highestRank = Integer.MAX_VALUE;
+        int yearOfHighestRank = -1;
+        // iterate over the map
+        Iterator<Map.Entry<Integer, NamesList>> it = 
+            mapByYear.entrySet().iterator();
+            
+        while (it.hasNext()) {
+            Map.Entry<Integer, NamesList> pair = it.next();
+
+            int year = pair.getKey();            
+            int rank = getRank(year, name, gender);
+            
+            if (rank != -1 && rank < highestRank) {
+                highestRank = rank;
+                yearOfHighestRank = year;
+            }
+        }
+
+        return yearOfHighestRank;
     }
 }
