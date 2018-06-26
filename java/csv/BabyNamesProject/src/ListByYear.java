@@ -103,4 +103,32 @@ public class ListByYear {
 
         return yearOfHighestRank;
     }
+    
+    public double getAverageRank(String name, Gender gender) {        
+        double averageRank = -1.0;
+        int count = 0;
+        
+        Iterator<Map.Entry<Integer, NamesList>> it =
+            mapByYear.entrySet().iterator();
+        
+        int rankTotal = 0;
+        
+        while (it.hasNext()) {
+            Map.Entry<Integer,NamesList> pair = it.next();
+            
+            int year = pair.getKey();
+            int rank = getRank(year, name, gender);
+            
+            if (rank != -1) {
+                rankTotal += rank;
+                count++;
+            }
+        }
+        
+        if (count != 0) {
+            averageRank = rankTotal / count;
+        }
+        
+        return averageRank;
+    }
 }
