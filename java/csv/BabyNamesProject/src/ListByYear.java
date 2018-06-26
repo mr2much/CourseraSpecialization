@@ -131,6 +131,9 @@ public class ListByYear {
             averageRank = rankTotal / (double) count;
         }
         
+        // rounds down a decimal number
+        // based on user593581 answer on StackOverflow
+        // https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
         BigDecimal bd = BigDecimal.valueOf(averageRank)
             .setScale(2, RoundingMode.DOWN);
         averageRank = bd.doubleValue();
