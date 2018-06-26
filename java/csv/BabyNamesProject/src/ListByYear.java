@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.csv.CSVParser;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ListByYear {
     Map<Integer, NamesList> mapByYear;
@@ -126,8 +128,12 @@ public class ListByYear {
         }
         
         if (count != 0) {
-            averageRank = rankTotal / count;
+            averageRank = rankTotal / (double) count;
         }
+        
+        BigDecimal bd = BigDecimal.valueOf(averageRank)
+            .setScale(2, RoundingMode.DOWN);
+        averageRank = bd.doubleValue();
         
         return averageRank;
     }

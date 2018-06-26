@@ -152,5 +152,13 @@ public class ListByYearTester {
         double avgRank = listYear.getAverageRank("Mason", Gender.MALE);
         
         assert avgRank == 3.0;
+        
+        avgRank = listYear.getAverageRank("Jacob", Gender.MALE);
+        
+        assert avgRank == 2.66 : "Value: " + avgRank;
+        
+        avgRank = listYear.getAverageRank("Anubis", Gender.MALE);
+        
+        assert avgRank == -1;
     }
 }
