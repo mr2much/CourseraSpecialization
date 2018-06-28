@@ -140,4 +140,27 @@ public class ListByYear {
         
         return averageRank;
     }
+    
+    public int getTotalBirthsRankedHigher(int year, String name, 
+        Gender gender) {            
+        int totalBirths = 0;
+        int rank = getRank(year, name, gender);
+        RankedName nameToCheck = getName(year, rank, gender);
+        int nameCount = nameToCheck.getCount();
+        
+        NamesList nl = getListForYear(year);
+        List<RankedName> males = nl.getAll(gender);
+        
+        for (RankedName currentName : males) {
+            if (currentName == nameToCheck) {
+                continue;
+            }
+            
+            if (currentName.getCount() >= nameCount) {
+                totalBirths += currentName.getCount();
+            }
+        }       
+
+        return totalBirths;
+    }
 }

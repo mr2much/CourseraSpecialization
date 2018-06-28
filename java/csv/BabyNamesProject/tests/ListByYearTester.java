@@ -24,6 +24,7 @@ public class ListByYearTester {
         highestRankOfMasonShouldBeInYear2012();
         yearOfHighestRankShouldBeNegativeOneIfNameNotExist();
         testAverageRank();
+        shouldGetTwoNamesThatAreRankedHigherThanEthan();
         System.out.println("ListByYear - Tests finished.");
     }    
     
@@ -160,5 +161,16 @@ public class ListByYearTester {
         avgRank = listYear.getAverageRank("Anubis", Gender.MALE);
         
         assert avgRank == -1;
+    }    
+    
+    public void shouldGetTwoNamesThatAreRankedHigherThanEthan() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForYear(2012);
+        
+        int totalBirths = listYear.getTotalBirthsRankedHigher(2012,
+            "Ethan", Gender.MALE);
+            
+        assert totalBirths == 15 : "Value: " + totalBirths;
     }
 }
