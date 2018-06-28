@@ -30,12 +30,9 @@ public class ListByYearTester {
     }    
     
     public void shouldLoadTestFileFor2012() {
-        // ListByYear listYear = 
-            // new ListByYear("res/us_babynames_test/yob%dshort.csv");
         ListByYear listYear = new ListByYear();
         
         listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
-        // listYear.loadListForYear(2012);
         NamesList listOf2012 = listYear.getListForYear(2012);
         
         List<RankedName> females = listOf2012.getAll(Gender.FEMALE);
@@ -67,10 +64,9 @@ public class ListByYearTester {
     }
     
     public void masonShouldBeRankTwoIn2012() {
-        ListByYear listYear = 
-            new ListByYear("res/us_babynames_test/yob%dshort.csv");
-     
-        listYear.loadListForYear(2012);
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
         int rank = listYear.getRank(2012, "Mason", Gender.MALE);
         
         assert rank == 2;
@@ -81,21 +77,18 @@ public class ListByYearTester {
     }
     
     public void nameShouldBeOliviaIn2012ForRank4() {
-        ListByYear listYear = 
-            new ListByYear("res/us_babynames_test/yob%dshort.csv");
+        ListByYear listYear = new ListByYear();
         
-        listYear.loadListForYear(2012);
-        
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
         RankedName name = listYear.getName(2012, 4, Gender.FEMALE);
         
         assert name.equals(new RankedName("Olivia", "F", 7));
     }
     
     public void nameShouldBeNONAMEIfItDoesntExist() {
-        ListByYear listYear = 
-            new ListByYear("res/us_babynames_test/yob%dshort.csv");
+        ListByYear listYear = new ListByYear();
         
-        listYear.loadListForYear(2012);
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
         
         RankedName name = listYear.getName(2012, 10, Gender.FEMALE);
         
@@ -171,10 +164,9 @@ public class ListByYearTester {
     }    
     
     public void shouldGetTwoNamesThatAreRankedHigherThanEthan() {
-        ListByYear listYear = 
-            new ListByYear("res/us_babynames_test/yob%dshort.csv");
+        ListByYear listYear = new ListByYear();
         
-        listYear.loadListForYear(2012);
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
         
         int totalBirths = listYear.getTotalBirthsRankedHigher(2012,
             "Ethan", Gender.MALE);
