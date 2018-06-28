@@ -181,10 +181,8 @@ public class ListByYearTester {
             .append("/").append(FileManager.TEST_PATH)
             .append("/").toString();
         ListByYear listYear = new ListByYear(root, "yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
-        listYear.loadListForYear(2012);
-        listYear.loadListForYear(2013);
-        listYear.loadListForYear(2014);
+
+        listYear.loadRangeOfFiles();
         
         double avgRank = listYear.getAverageRank("Mason", Gender.MALE);
         

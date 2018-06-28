@@ -12,9 +12,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import edu.duke.DirectoryResource;
 import org.apache.commons.csv.CSVParser;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.io.File;
 
 public class ListByYear {
     Map<Integer, NamesList> mapByYear;
@@ -40,6 +42,21 @@ public class ListByYear {
         NamesList namesList = fileManager.getNamesListFrom(parser);
         
         mapByYear.put(new Integer(year), namesList);
+    }
+    
+    public void loadRangeOfFiles() {
+        DirectoryResource dr = new DirectoryResource();
+        
+        for (File f : dr.selectedFiles()) {
+            int year = extractYear(f.getName());
+            loadListForYear(year);
+        }        
+    }
+    
+    private int extractYear(String text) {
+        text = text.replaceAll("\\D+", "");
+        
+        return Integer.parseInt(text);
     }
     
     public NamesList getListForYear(int year) {
