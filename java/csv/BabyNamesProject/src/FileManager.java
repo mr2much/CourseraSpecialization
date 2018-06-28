@@ -20,6 +20,7 @@ public class FileManager {
     public static String RESOURCE_PATH = "res";
     public static String DECADE_PATH = "us_babynames_by_decade";
     public static String YEAR_PATH = "us_babynames_by_year";
+    public static String TEST_PATH = "us_babynames_test";
  
     String filename;
     

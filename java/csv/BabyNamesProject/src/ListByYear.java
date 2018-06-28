@@ -19,15 +19,23 @@ import java.math.RoundingMode;
 public class ListByYear {
     Map<Integer, NamesList> mapByYear;
     FileManager fileManager;
+    String workingDir;
+    String filenamePattern;
     
     {
         mapByYear = new HashMap<>();
         fileManager = new FileManager();
     }
     
+    public ListByYear(String workingDir, String pattern) {
+        this.workingDir = workingDir;
+        this.filenamePattern = pattern;
+    }
+    
     public void loadListForYear(int year) {
-        String pattern = "res/us_babynames_test/yob%dshort.csv";
-        fileManager.setFilename(String.format(pattern, year));
+        // String pattern = "res/us_babynames_test/yob%dshort.csv";
+        fileManager.setFilename(String
+            .format(workingDir + filenamePattern, year));
         CSVParser parser = fileManager.getCSVParser();
         NamesList namesList = fileManager.getNamesListFrom(parser);
         
