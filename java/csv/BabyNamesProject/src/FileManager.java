@@ -36,6 +36,12 @@ public class FileManager {
         return fr.getCSVParser(false);
     }
     
+    public CSVParser getCSVParser(String filename) {
+        FileResource fr = new FileResource(Paths.get(filename).toString());
+        
+        return fr.getCSVParser(false);
+    }
+    
     public List<String> readAllLines(Path path) throws IOException {
         if (pathExists(path)) {
             return Files.readAllLines(path, StandardCharsets.UTF_8);

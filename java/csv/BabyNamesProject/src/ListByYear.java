@@ -28,8 +28,18 @@ public class ListByYear {
         fileManager = new FileManager();
     }
     
+    public ListByYear() { }
+    
     public ListByYear(String pattern) {
         this.filenamePattern = pattern;
+    }
+    
+    public void loadListForFile(String filename) {
+        int year = extractYear(filename);
+        CSVParser parser = fileManager.getCSVParser(filename);
+        NamesList namesList = fileManager.getNamesListFrom(parser);
+        
+        mapByYear.put(new Integer(year), namesList);
     }
     
     public void loadListForYear(int year) {

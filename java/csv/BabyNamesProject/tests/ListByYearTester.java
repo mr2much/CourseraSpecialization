@@ -30,13 +30,12 @@ public class ListByYearTester {
     }    
     
     public void shouldLoadTestFileFor2012() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
-        ListByYear listYear = 
-            new ListByYear("res/us_babynames_test/yob%dshort.csv");
+        // ListByYear listYear = 
+            // new ListByYear("res/us_babynames_test/yob%dshort.csv");
+        ListByYear listYear = new ListByYear();
         
-        listYear.loadListForYear(2012);
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
+        // listYear.loadListForYear(2012);
         NamesList listOf2012 = listYear.getListForYear(2012);
         
         List<RankedName> females = listOf2012.getAll(Gender.FEMALE);
@@ -68,13 +67,9 @@ public class ListByYearTester {
     }
     
     public void masonShouldBeRankTwoIn2012() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
-        
+     
         listYear.loadListForYear(2012);
         int rank = listYear.getRank(2012, "Mason", Gender.MALE);
         
@@ -86,12 +81,8 @@ public class ListByYearTester {
     }
     
     public void nameShouldBeOliviaIn2012ForRank4() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
         
         listYear.loadListForYear(2012);
         
@@ -101,12 +92,8 @@ public class ListByYearTester {
     }
     
     public void nameShouldBeNONAMEIfItDoesntExist() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
         
         listYear.loadListForYear(2012);
         
@@ -116,12 +103,8 @@ public class ListByYearTester {
     }
     
     public void nameIsabellaIn2012ShouldBeSophiaIn2014() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
         
         listYear.loadListForYear(2012);
         listYear.loadListForYear(2014);
@@ -134,12 +117,8 @@ public class ListByYearTester {
     }
     
     public void nameInYearShouldReturnNullIfNoMatchFound() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
         
         listYear.loadListForYear(2012);
         listYear.loadListForYear(2014);
@@ -151,9 +130,6 @@ public class ListByYearTester {
     }
     
     public void highestRankOfMasonShouldBeInYear2012() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
         
@@ -165,9 +141,6 @@ public class ListByYearTester {
     }
     
     public void yearOfHighestRankShouldBeNegativeOneIfNameNotExist() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
         
@@ -179,9 +152,6 @@ public class ListByYearTester {
     }
     
     public void testAverageRank() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
 
@@ -201,12 +171,8 @@ public class ListByYearTester {
     }    
     
     public void shouldGetTwoNamesThatAreRankedHigherThanEthan() {
-        // String root = new StringBuilder().append(FileManager.RESOURCE_PATH)
-            // .append("/").append(FileManager.TEST_PATH)
-            // .append("/").toString();
         ListByYear listYear = 
             new ListByYear("res/us_babynames_test/yob%dshort.csv");
-        // ListByYear listYear = new ListByYear();
         
         listYear.loadListForYear(2012);
         
