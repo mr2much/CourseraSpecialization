@@ -67,6 +67,26 @@ public class ListByYear {
         return Integer.parseInt(text);
     }
     
+    public int getTotalBirthsFor(int year, Gender gender) {
+        NamesList nl = getListForYear(year);
+        
+        if (nl != null) {
+            return nl.getTotalBirthsForGender(gender);
+        }
+        
+        return 0;
+    }
+    
+    public int getTotalBirthsFor(int year) {
+        NamesList nl = getListForYear(year);
+        
+        if (nl != null) {
+            return nl.totalBirths();
+        }
+        
+        return 0;
+    }
+    
     public NamesList getListForYear(int year) {
         NamesList nl = null;
         

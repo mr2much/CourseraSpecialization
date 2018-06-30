@@ -91,24 +91,64 @@ public class NamesList implements Iterable<Map.Entry<Gender, List<RankedName>>> 
         return -1;
     }
     
-    public int totalFemales() {
+    public int getTotalBirthsForGender(Gender gender) {
+        if (gender == Gender.FEMALE) {
+            return totalFemales();
+        } else if (gender == Gender.MALE) {
+            return totalMales();
+        }
+        
+        return 0;
+    }
+    
+    public int totalNames() {
+        return totalGirlNames() + totalBoyNames();
+    }
+    
+    public int totalGirlNames() {
         List<RankedName> femaleList = namesMap.get(Gender.FEMALE);
         
-        if(femaleList == null) {
-            femaleList = new ArrayList<>();
+        if (femaleList == null) {
+            femaleList = new ArrayList<RankedName>();
         }
         
         return femaleList.size();
     }
     
-    public int totalMales() {
+    public int totalBoyNames() {
         List<RankedName> maleList = namesMap.get(Gender.MALE);
         
         if (maleList == null) {
-            maleList = new ArrayList<>();
+            maleList = new ArrayList<RankedName>();
         }
         
         return maleList.size();
+    }
+    
+    public int totalFemales() {
+        List<RankedName> femaleList = namesMap.get(Gender.FEMALE);
+        int birthsCount = 0;
+        
+        if(femaleList != null) {
+            for (RankedName name : femaleList) {
+                birthsCount += name.getCount();
+            }
+        }
+        
+        return birthsCount;
+    }
+    
+    public int totalMales() {
+        List<RankedName> maleList = namesMap.get(Gender.MALE);
+        int birthsCount = 0;
+        
+        if (maleList != null) {
+            for (RankedName name : maleList) {
+                birthsCount += name.getCount();
+            }
+        }
+        
+        return birthsCount;
     }
     
     public int totalBirths() {

@@ -32,21 +32,21 @@ public class NameListTester {
         
         namesList.insert(jennifer);
         
-        assert namesList.totalBirths() == 1;
+        assert namesList.totalBirths() == 5;
         
         RankedName grace = new RankedName("Grace", "F", 5);
         
         namesList.insert(grace);
         
-        assert namesList.totalBirths() == 2;
-        assert namesList.totalFemales() == 2;
+        assert namesList.totalBirths() == 10;
+        assert namesList.totalFemales() == 10;
         assert namesList.totalMales() == 0;
         
         RankedName anubis = new RankedName("Anubis", "M", 1);
         
         namesList.insert(anubis);
         
-        assert namesList.totalBirths() == 3 : 
+        assert namesList.totalBirths() == 11 : 
             "Expected 3, got " + namesList.totalBirths();
         assert namesList.totalMales() == 1;
     }
@@ -55,7 +55,7 @@ public class NameListTester {
         NamesList namesList = new NamesList();
         namesList.insert("Emma,F,500");
         
-        assert namesList.totalBirths() == 1;
+        assert namesList.totalBirths() == 500;
         
         List<RankedName> names = namesList.getAll(Gender.FEMALE);
         

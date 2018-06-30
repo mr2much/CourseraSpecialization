@@ -16,6 +16,7 @@ import java.util.List;
 
 public class ListByYearTester {
     public void performTests() {
+        testDisplayingTotalOfSexInFile();
         shouldLoadTestFileFor2012();
         masonShouldBeRankTwoIn2012();
         nameShouldBeOliviaIn2012ForRank4();
@@ -27,7 +28,21 @@ public class ListByYearTester {
         testAverageRank();
         shouldGetTwoNamesThatAreRankedHigherThanEthan();
         System.out.println("ListByYear - Tests finished.");
-    }    
+    }
+    
+    public void testDisplayingTotalOfSexInFile() {
+        ListByYear listYear = new ListByYear();
+        
+        listYear.loadListForFile("res/us_babynames_test/yob2012short.csv");
+        
+        int females = listYear.getTotalBirthsFor(2012, Gender.FEMALE);
+        int males = listYear.getTotalBirthsFor(2012, Gender.MALE);
+        int totalBirths = listYear.getTotalBirthsFor(2012);
+        
+        assert females == 40;
+        assert males == 33;
+        assert totalBirths == (females + males) && totalBirths == 73;
+    }
     
     public void shouldLoadTestFileFor2012() {
         ListByYear listYear = new ListByYear();

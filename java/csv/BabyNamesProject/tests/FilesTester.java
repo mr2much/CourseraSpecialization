@@ -82,9 +82,9 @@ public class FilesTester {
         List<RankedName> females = namesList.getAll(Gender.FEMALE);
         List<RankedName> males = namesList.getAll(Gender.MALE);
         
-        assert namesList.totalFemales() == 5;
-        assert namesList.totalMales() == 5;
-        assert namesList.totalBirths() == 10;
+        assert namesList.totalFemales() == 40;
+        assert namesList.totalMales() == 33;
+        assert namesList.totalBirths() == 73;
     }
     
     public void testLoadingAllFemalesFromExampleCSVFile() {
