@@ -15,6 +15,10 @@ public class Main {
         showRankOfFrankIn1971();
         showGirlsNameRanked350In1980();
         showBoysNameRanked450In1982();
+        nameOfSusanIfSheWasBornIn2014();
+        showHighestRankOfGenevieve();
+        showAverageRankOfSusan();
+        showGirlsRankedHigherThanEmily();
     }
     
     public static void showNumberOfGirlsNamesIn1900() {
@@ -79,5 +83,75 @@ public class Main {
         RankedName name = listByYear.getName(1982, 450, Gender.MALE);
         
         System.out.println("The boy's name ranked 450 in 1982 was " + name.getName());
+    }
+    
+    public static void nameOfSusanIfSheWasBornIn2014() {
+        ListByYear listByYear = new ListByYear();
+        
+        listByYear.loadListForFile("res/us_babynames_by_year/yob1972.csv");
+        listByYear.loadListForFile("res/us_babynames_by_year/yob1974.csv");
+        listByYear.loadListForFile("res/us_babynames_by_year/yob2014.csv");
+        
+        RankedName name = listByYear.whatIsNameInYear("Susan", 1972, 2014,
+            Gender.FEMALE);
+            
+        System.out.println("Susan would be " + name.getName() + " if she " +
+            "were born in 2014.");
+            
+        RankedName owenName = listByYear.whatIsNameInYear("Owen", 1974, 2014, 
+            Gender.MALE);
+            
+        System.out.println("Owen would be " + owenName.getName() +
+            " if he were born in 2014.");
+    }
+    
+    public static void showHighestRankOfGenevieve() {
+        ListByYear list = 
+            new ListByYear("res/us_babynames_by_year/yob%d.csv");
+        
+        list.loadRangeOfFiles();
+        
+        int year = list.yearOfHighestRank("Genevieve", Gender.FEMALE);
+        
+        System.out.println("Highest ranking year for Genevieve was " + year);
+        
+        year = list.yearOfHighestRank("Mich", Gender.MALE);
+        
+        System.out.println("Highest ranking year for Mich was " + year);
+    }
+    
+    public static void showAverageRankOfSusan() {
+        ListByYear list =
+            new ListByYear("res/us_babynames_by_year/yob%d.csv");
+            
+        list.loadRangeOfFiles();
+        
+        double avgRank = list.getAverageRank("Susan", Gender.FEMALE);
+        
+        System.out.println("Average rank for Susan from 1880 to 2014 is " +
+            avgRank);
+            
+        avgRank = list.getAverageRank("Robert", Gender.MALE);
+        
+        System.out.println("Average rank of Robert from 1880 to 2014 is " 
+            + avgRank);
+    }
+    
+    public static void showGirlsRankedHigherThanEmily() {
+        ListByYear list = new ListByYear();
+        
+        list.loadListForFile("res/us_babynames_by_year/yob1990.csv");
+        
+        int totalBirths = list.getTotalBirthsRankedHigher(1990, "Emily",
+            Gender.FEMALE);
+            
+        System.out.println("The total number of girls ranked higher than " +
+            "Emily is " + totalBirths);
+            
+        totalBirths = list.getTotalBirthsRankedHigher(1990, "Drew", 
+            Gender.MALE);
+            
+        System.out.println("The total number of boys ranked higher than " +
+            "Drew is " + totalBirths);
     }
 }
