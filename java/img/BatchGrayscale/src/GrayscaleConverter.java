@@ -48,6 +48,7 @@ public class GrayscaleConverter {
     
     private ImageResource calculatePixels(ImageResource input) {
         ImageResource newImg = input;
+        
         for (Pixel pxl : newImg.pixels()) {
             int r = pxl.getRed();
             int g = pxl.getGreen();
