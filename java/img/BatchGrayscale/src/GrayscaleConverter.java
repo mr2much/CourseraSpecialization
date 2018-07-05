@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.io.File;
 import edu.duke.ImageResource;
 import edu.duke.Pixel;
+import edu.duke.DirectoryResource;
 
 public class GrayscaleConverter {
     List<File> allImages;
@@ -29,6 +30,12 @@ public class GrayscaleConverter {
         allImages.addAll(Arrays.asList(files));
     }
     
+    public void loadSelectedImages() {
+        File[] files = FileManager.loadSelectedFiles();
+        
+        allImages.addAll(Arrays.asList(files));
+    }
+    
     public List<File> getAllImages() {
         return allImages;
     }
@@ -36,7 +43,9 @@ public class GrayscaleConverter {
     public void processImages() {
         for (File file : allImages) {
             ImageResource imgRsc = new ImageResource(file);
-            convertToGrayscale(imgRsc);
+            ImageResource newImg = convertToGrayscale(imgRsc);
+            
+            FileManager.saveAsNewImage(newImg, "grayscale_");
         }
     }
     

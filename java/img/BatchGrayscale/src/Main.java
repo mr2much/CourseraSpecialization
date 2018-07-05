@@ -9,5 +9,14 @@ package src;
  */
 public class Main {
     public static void main(String[] args) {
+        execute();
+    }
+    
+    public static void execute() {
+        GrayscaleConverter gsc = new GrayscaleConverter();
+        
+        gsc.loadSelectedImages();
+        
+        gsc.processImages();
     }
 }
