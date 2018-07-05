@@ -30,16 +30,16 @@ public class FileManagerTest {
         compare(filenames, new String[] {"images\\astrachan.jpg", 
             "images\\dinos.png", "images\\duke_blue_devil.png", 
             "images\\duvall.jpg", "images\\eastereggs.jpg", 
-            "images\\hilton.jpg", "images\\hippieflower.jpg", 
-            "images\\pixabayhands.jpg", "images\\rodger.png", 
-            "images\\smallhands.png", "images\\smallpanda.png"});
+            "images\\hilton.jpg", "images\\pixabayhands.jpg", 
+            "images\\rodger.png", "images\\smallhands.png", 
+            "images\\smallpanda.png"});
     }
     
     private void compare(List<File> list, String[] otherArray) {
         Object[] arr = list.toArray();
         
         for (int i = 0; i < otherArray.length; i++) {
-            assert arr[i].toString().equals(otherArray[i]);
+            assert arr[i].toString().equals(otherArray[i]) : "Value of i: " + i;
         }
     }
     
