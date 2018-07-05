@@ -40,10 +40,10 @@ public class GrayscaleConverter {
         }
     }
     
-    public void convertToGrayscale(ImageResource imageRes) {
+    public ImageResource convertToGrayscale(ImageResource imageRes) {
         System.out.println("Converting image " + imageRes.getFileName());
         
-        calculatePixels(imageRes).draw();
+        return calculatePixels(imageRes);
     }
     
     private ImageResource calculatePixels(ImageResource input) {

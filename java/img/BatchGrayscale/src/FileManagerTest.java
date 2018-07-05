@@ -17,6 +17,7 @@ public class FileManagerTest {
     public void performTest() {
         getFilenamesInPath();
         testConvertingImageToGrayscale();
+        testSavingNewImage();
         System.out.println("Tests finished.");
     }
     
@@ -43,10 +44,20 @@ public class FileManagerTest {
     }
     
     public void testConvertingImageToGrayscale() {
-        ImageResource res = new ImageResource();
+        ImageResource res = new ImageResource(Paths.get("images",
+            "pixabayhands.jpg").toFile());
         
         GrayscaleConverter gsc = new GrayscaleConverter();
         
-        gsc.convertToGrayscale(res);
+        ImageResource other = gsc.convertToGrayscale(res);
+        
+        other.draw();
+    }
+    
+    public void testSavingNewImage() {
+        ImageResource res = new ImageResource(Paths.get("images",
+            "pixabayhands.jpg").toFile());
+            
+        FileManager.saveAsNewImage();
     }
 }
