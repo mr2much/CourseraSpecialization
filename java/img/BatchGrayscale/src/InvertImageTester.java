@@ -10,12 +10,14 @@ package src;
 
 import java.util.List;
 import java.io.File;
+import edu.duke.ImageResource;
+import java.nio.file.Paths;
 
 public class InvertImageTester {
     public void performTest() {
         getFilenamesInPath();
-        // testConvertingImageToGrayscale();
-        // testSavingNewImage();
+        testInvertImageConverter();
+        testSavingNewImage();
         System.out.println("Tests finished.");
     }
     
@@ -39,5 +41,23 @@ public class InvertImageTester {
         for (int i = 0; i < otherArray.length; i++) {
             assert arr[i].toString().equals(otherArray[i]) : "Value of i: " + i;
         }
+    }
+    
+    public void testInvertImageConverter() {
+        ImageResource res = new ImageResource(Paths.get("images",
+            "duvall.jpg").toFile());
+        
+        InvertImageConverter iic = new InvertImageConverter();
+        
+        ImageResource other = iic.invertImage(res);
+        
+        other.draw();
+    }
+    
+    public void testSavingNewImage() {
+        ImageResource res = new ImageResource(Paths.get("images",
+            "duvall.jpg").toFile());
+            
+        FileManager.saveAsNewImage(res, "../img/inverted_");
     }
 }

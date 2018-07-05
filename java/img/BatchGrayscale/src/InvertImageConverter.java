@@ -58,12 +58,9 @@ public class InvertImageConverter {
             int r = pxl.getRed();
             int g = pxl.getGreen();
             int b = pxl.getBlue();
-            
-            System.out.println("Red: " + r + ", Green: " + g + ", Blue: " + b);
-            int avg = (r + g + b) / 3;
-            pxl.setRed(avg);
-            pxl.setGreen(avg);
-            pxl.setBlue(avg);
+            pxl.setRed(255 - r);
+            pxl.setGreen(255 - g);
+            pxl.setBlue(255 - b);
         }
         
         return newImg;
