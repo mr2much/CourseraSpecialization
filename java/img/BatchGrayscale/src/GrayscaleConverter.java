@@ -40,12 +40,12 @@ public class GrayscaleConverter {
         return allImages;
     }
     
-    public void processImages() {
+    public void processImages(String prefix) {
         for (File file : allImages) {
             ImageResource imgRsc = new ImageResource(file);
             ImageResource newImg = convertToGrayscale(imgRsc);
             
-            FileManager.saveAsNewImage(newImg, "grayscale_");
+            FileManager.saveAsNewImage(newImg, prefix);
         }
     }
     

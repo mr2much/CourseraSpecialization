@@ -58,6 +58,6 @@ public class FileManagerTest {
         ImageResource res = new ImageResource(Paths.get("images",
             "pixabayhands.jpg").toFile());
             
-        FileManager.saveAsNewImage(res, "grayscale_");
+        FileManager.saveAsNewImage(res, "../img/grayscale_");
     }
 }

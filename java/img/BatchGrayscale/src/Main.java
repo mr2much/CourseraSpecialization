@@ -9,14 +9,23 @@ package src;
  */
 public class Main {
     public static void main(String[] args) {
-        execute();
+        convertToGrayscale();
+        invertImages();
     }
     
-    public static void execute() {
+    public static void convertToGrayscale() {
         GrayscaleConverter gsc = new GrayscaleConverter();
         
         gsc.loadSelectedImages();
         
-        gsc.processImages();
+        gsc.processImages("../img/grayscale_");
+    }
+    
+    public static void invertImages() {
+        InvertImageConverter iic = new InvertImageConverter();
+        
+        iic.loadSelectedImages();
+        
+        iic.processImages("../img/inverted_");
     }
 }

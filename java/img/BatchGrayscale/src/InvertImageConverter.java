@@ -38,12 +38,12 @@ public class InvertImageConverter {
         return allImages;
     }
     
-    public void processImages() {
+    public void processImages(String prefix) {
         for (File file : allImages) {
             ImageResource imgRsc = new ImageResource(file);
             ImageResource newImg = invertImage(imgRsc);
             
-            FileManager.saveAsNewImage(newImg, "inverted_");
+            FileManager.saveAsNewImage(newImg, prefix);
         }
     }
     
