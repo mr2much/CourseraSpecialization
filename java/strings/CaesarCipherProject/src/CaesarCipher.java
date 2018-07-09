@@ -29,8 +29,9 @@ public class CaesarCipher {
                 continue;
             }
             
-            int currentIndex = ALPHABET.indexOf(currentChar);
-            char encryptedChar = getEncryptedCharacterFor(currentIndex);
+            int currentIndex = getCurrentIndex(currentChar);
+            char encryptedChar = getEncryptedCharacterFor(currentIndex,
+                isLowerCase(currentChar));
             
             encrypted.setCharAt(i, encryptedChar);
         }
@@ -38,7 +39,21 @@ public class CaesarCipher {
         return encrypted.toString();
     }
     
-    private char getEncryptedCharacterFor(int index) {
-        return shiftedAlphabet.charAt(index);
+    public int getCurrentIndex(char ch) {
+        if(isLowerCase(ch)) {
+            return ALPHABET.toLowerCase().indexOf(ch);
+        }
+        
+        return ALPHABET.indexOf(ch);
     }
+    
+    private boolean isLowerCase(char ch) {
+        return Character.isLowerCase(ch);
+    }
+    
+    private char getEncryptedCharacterFor(int index, boolean toLowerCase) {
+        return toLowerCase ? shiftedAlphabet.toLowerCase().charAt(index) :
+            shiftedAlphabet.charAt(index);
+    }
+    
 }

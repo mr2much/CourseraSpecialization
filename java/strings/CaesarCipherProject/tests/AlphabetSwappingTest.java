@@ -34,5 +34,6 @@ public class AlphabetSwappingTest {
         cipher = new CaesarCipher();
         
         assert "T UTM".equals(cipher.encrypt("A BAT", 19));
+        assert "Tgnubl".equals(cipher.encrypt("Anubis", 19));
     }
 }
