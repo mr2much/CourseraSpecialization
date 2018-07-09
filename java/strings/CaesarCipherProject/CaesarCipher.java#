@@ -1,0 +1,19 @@
+ 
+/**
+ * Write a description of CaesarCipher here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class CaesarCipher {
+    private final static String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int key;
+    
+    public CaesarCipher(int key) {
+        this.key = key;
+    }
+    
+    public String getAlphabet() {
+        return "RSTUVWXYZABCDEFGHIJKLMNOPQ";
+    }
+}

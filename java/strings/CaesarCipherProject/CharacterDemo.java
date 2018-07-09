@@ -21,4 +21,18 @@ public class CharacterDemo {
             }
         }
     }
+    
+    public void conversionTest() {
+        String test = "ABCDEFabcdef123!#";
+        
+        System.out.printf("%-25s%-25s%-25s\n", "Initial Character", 
+            "Uppercase Character", "Lowercase Character");
+        for (int i = 0; i < test.length(); i++) {
+            char ch = test.charAt(i);
+            char upperChar = Character.toUpperCase(ch);
+            char lowerChar = Character.toLowerCase(ch);
+            
+            System.out.printf("%8s%27s%25s\n", ch, upperChar, lowerChar);
+        }
+    }
 }
