@@ -18,30 +18,12 @@ public class CaesarCipher {
     }
     
     private void shiftAlphabet() {
-        StringBuilder builder = new StringBuilder(ALPHABET);
-        int startPosition = ALPHABET.indexOf('A');
-        char currentChar = ALPHABET.charAt(startPosition);
+        StringBuilder builder = new StringBuilder(ALPHABET.substring(0, key));
+        String lettersToSwap = ALPHABET.substring(key);
         
-        char newChar = ' ';
-        for (int i = 0; startPosition < (ALPHABET.length() - key) ; i++) {
-            newChar = ALPHABET.charAt(startPosition + key);
-            System.out.println("currentChar: " + currentChar +
-                " newChar: " + newChar);
-            swap(currentChar, newChar, builder);
-            startPosition++;
-            currentChar = ALPHABET.charAt(startPosition);
-            System.out.println("StartPosition: " + startPosition);
-        }
-        
-        System.out.println("newChar: " + newChar);
+        builder.insert(0, lettersToSwap);
+
         shiftedAlphabet = builder.toString();
     }
     
-    private void swap(char firstChar, char secondChar, StringBuilder builder) {
-        int indexOfFirstChar = ALPHABET.indexOf(Character.toString(firstChar));
-        int indexOfSecondChar = ALPHABET.indexOf(Character.toString(secondChar));
-        
-        builder.insert(indexOfFirstChar, secondChar);
-        builder.deleteCharAt(indexOfSecondChar);
-    }
 }
