@@ -40,11 +40,8 @@ public class CaesarCipher {
     }
     
     public int getCurrentIndex(char ch) {
-        if(isLowerCase(ch)) {
-            return ALPHABET.toLowerCase().indexOf(ch);
-        }
-        
-        return ALPHABET.indexOf(ch);
+        return isLowerCase(ch) ? ALPHABET.toLowerCase().indexOf(ch) :
+            ALPHABET.indexOf(ch);
     }
     
     private boolean isLowerCase(char ch) {
