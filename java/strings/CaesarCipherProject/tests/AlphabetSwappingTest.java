@@ -10,29 +10,29 @@ import src.CaesarCipher;
 
 public class AlphabetSwappingTest {
     public void performTests() {
-        testSwappingAlphabetByKey();
+        // testSwappingAlphabetByKey();
         testEncription();
         System.out.println("OK");
     }
     
-    public void testSwappingAlphabetByKey() {
-        CaesarCipher cipher = new CaesarCipher(17);
+    // public void testSwappingAlphabetByKey() {
+        // CaesarCipher cipher = new CaesarCipher(17);
         
-        String shiftedAlphabet = cipher.getAlphabet();
+        // String shiftedAlphabet = cipher.getAlphabet();
         
-        assert shiftedAlphabet.equals("RSTUVWXYZABCDEFGHIJKLMNOPQ") : 
-            "Value: " + shiftedAlphabet;
-    }
+        // assert shiftedAlphabet.equals("RSTUVWXYZABCDEFGHIJKLMNOPQ") : 
+            // "Value: " + shiftedAlphabet;
+    // }
     
     public void testEncription() {
-        CaesarCipher cipher = new CaesarCipher(17);
+        CaesarCipher cipher = new CaesarCipher();
         
-        String encrypted = cipher.encrypt("I AM");
+        String encrypted = cipher.encrypt("I AM", 17);
         
         assert encrypted.equals("Z RD") : "Value: " + encrypted;
         
-        cipher = new CaesarCipher(19);       
+        cipher = new CaesarCipher();
         
-        assert "T UTM".equals(cipher.encrypt("A BAT"));
+        assert "T UTM".equals(cipher.encrypt("A BAT", 19));
     }
 }
