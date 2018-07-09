@@ -11,6 +11,7 @@ import src.CaesarCipher;
 public class AlphabetSwappingTest {
     public void performTests() {
         testSwappingAlphabetByKey();
+        testEncription();
         System.out.println("OK");
     }
     
@@ -21,5 +22,17 @@ public class AlphabetSwappingTest {
         
         assert shiftedAlphabet.equals("RSTUVWXYZABCDEFGHIJKLMNOPQ") : 
             "Value: " + shiftedAlphabet;
+    }
+    
+    public void testEncription() {
+        CaesarCipher cipher = new CaesarCipher(17);
+        
+        String encrypted = cipher.encrypt("I AM");
+        
+        assert encrypted.equals("Z RD") : "Value: " + encrypted;
+        
+        cipher = new CaesarCipher(19);       
+        
+        assert "T UTM".equals(cipher.encrypt("A BAT"));
     }
 }

@@ -26,4 +26,26 @@ public class CaesarCipher {
         shiftedAlphabet = builder.toString();
     }
     
+    public String encrypt(String toEncrypt) {
+        StringBuilder encrypted = new StringBuilder(toEncrypt);
+        
+        for (int i = 0; i < toEncrypt.length(); i++) {
+            char currentChar = encrypted.charAt(i);
+            
+            if(!Character.isLetter(currentChar)) {
+                continue;
+            }
+            
+            int currentIndex = ALPHABET.indexOf(currentChar);
+            char encryptedChar = getEncryptedCharacterFor(currentIndex);
+            
+            encrypted.setCharAt(i, encryptedChar);
+        }
+        
+        return encrypted.toString();
+    }
+    
+    private char getEncryptedCharacterFor(int index) {
+        return shiftedAlphabet.charAt(index);
+    }
 }
