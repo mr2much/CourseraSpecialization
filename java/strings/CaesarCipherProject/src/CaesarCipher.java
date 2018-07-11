@@ -41,16 +41,14 @@ public class CaesarCipher {
     }
     
     public String encrypt(String toEncrypt, int key1, int key2) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(toEncrypt);
         
-        for (int i = 0; i < toEncrypt.length(); i++) {
-            String currentChar = Character.toString(toEncrypt.charAt(i));
-            
-            if (isEven(i + 1)) {
-                builder.append(encrypt(currentChar, key2));
-            } else {
-                builder.append(encrypt(currentChar, key1));
-            }
+        String encrypted1 = encrypt(toEncrypt, key1);
+        String encrypted2 = encrypt(toEncrypt, key2);
+        
+        for (int i = 0; i < builder.length(); i++) {
+            builder.setCharAt(i, isEven(i + 1) ? encrypted2.charAt(i) :
+                encrypted1.charAt(i));
         }
         
         return builder.toString();

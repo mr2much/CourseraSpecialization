@@ -16,13 +16,11 @@ public class WordPlay {
     }
     
     public String replaceVowels(String original, char ch) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(original);
         
         for (int i = 0; i < original.length(); i++) {
             if (isVowel(original.charAt(i))) {
-                builder.append(ch);
-            } else {
-                builder.append(original.charAt(i));
+                builder.setCharAt(i, ch);
             }
         }
         
