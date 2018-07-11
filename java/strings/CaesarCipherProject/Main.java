@@ -11,16 +11,23 @@ import src.CaesarCipher;
 
 public class Main {
     public static void main(String[] args) {
-        FileResource fr = new FileResource();
-        
-        StringBuilder encrypted = new StringBuilder();
         CaesarCipher cipher = new CaesarCipher();
         
-        for(String s : fr.lines()) {
-            encrypted.append(cipher.encrypt(s, 17));
-            encrypted.append("\n");
-        }
+        String message = "At noon be in the conference room with your hat on " +
+            "for a surprise party. YELL LOUD!";
+            
+        System.out.println(cipher.encrypt(message, 15));
         
-        System.out.println(encrypted.toString());
+        System.out.println(cipher.encrypt(message, 8, 21));
+        // FileResource fr = new FileResource();
+        
+        // StringBuilder encrypted = new StringBuilder();
+        
+        // for(String s : fr.lines()) {
+            // encrypted.append(cipher.encrypt(s, 17));
+            // encrypted.append("\n");
+        // }
+        
+        // System.out.println(encrypted.toString());
     }
 }

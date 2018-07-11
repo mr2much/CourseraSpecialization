@@ -12,6 +12,7 @@ public class AlphabetSwappingTest {
     public void performTests() {
         // testSwappingAlphabetByKey();
         testEncription();
+        testEncryptionWithTwoKeys();
         System.out.println("OK");
     }
     
@@ -35,5 +36,20 @@ public class AlphabetSwappingTest {
         
         assert "T UTM".equals(cipher.encrypt("A BAT", 19));
         assert "Tgnubl".equals(cipher.encrypt("Anubis", 19));
+        assert cipher.encrypt("FIRST LEGION ATTACK EAST FLANK!", 23)
+            .equals("CFOPQ IBDFLK XQQXZH BXPQ CIXKH!");
+            
+        assert cipher.encrypt("First Legion", 23)
+            .equals("Cfopq Ibdflk");
+            
+        assert cipher.encrypt("First Legion", 17)
+            .equals("Wzijk Cvxzfe");
+    }
+    
+    public void testEncryptionWithTwoKeys() {
+        CaesarCipher cipher = new CaesarCipher();
+        
+        assert cipher.encrypt("First Legion", 23, 17)
+            .equals("Czojq Ivdzle");
     }
 }

@@ -8,8 +8,9 @@ package src;
 public class CaesarCipher {
     private final static String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     String shiftedAlphabet;
+    WordPlay wp;
     
-    public CaesarCipher() { }
+    public CaesarCipher() { this.wp = new WordPlay(); }
     
     private void shiftAlphabet(int key) {
         StringBuilder builder = new StringBuilder(ALPHABET.substring(key))
@@ -37,6 +38,26 @@ public class CaesarCipher {
         }
         
         return encrypted.toString();
+    }
+    
+    public String encrypt(String toEncrypt, int key1, int key2) {
+        StringBuilder builder = new StringBuilder();
+        
+        for (int i = 0; i < toEncrypt.length(); i++) {
+            String currentChar = Character.toString(toEncrypt.charAt(i));
+            
+            if (isEven(i + 1)) {
+                builder.append(encrypt(currentChar, key2));
+            } else {
+                builder.append(encrypt(currentChar, key1));
+            }
+        }
+        
+        return builder.toString();
+    }
+    
+    private boolean isEven(int n) {
+        return n % 2 == 0;
     }
     
     public int getCurrentIndex(char ch) {
