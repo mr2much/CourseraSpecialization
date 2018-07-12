@@ -52,12 +52,25 @@ public class IsVowelTest {
         
         int[] letterCount = wp.textFingerPrint("Anubis");
         
-        compare(letterCount, new int[] {1, 1, 1, 1, 1, 1});
+        compare(letterCount, new int[] {1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+            0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0});
+            
+        letterCount = wp.textFingerPrint("Anubis Lockward");
+        
+        compare(letterCount, new int[] {2, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1,
+            0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0});
     }
     
     private void compare(int[] toTest, int[] arr) {
+        if (toTest == null) {
+            System.out.println("toTest is null");
+        }
+        
+        if (arr == null) {
+            System.out.println("arr is null");
+        }
         for (int i = 0; i < arr.length; i++) {
-            assert toTest[i] == arr[i];
+            assert toTest[i] == arr[i] : "Value = " + i;
         }
     }
 

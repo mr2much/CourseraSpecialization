@@ -47,6 +47,18 @@ public class WordPlay {
     }
     
     public int[] textFingerPrint(String input) {
-        return new int[] {1, 1, 1, 1, 1, 1};
+        int[] result = new int[ALPHABET.length()];
+
+        for (int i = 0; i < input.length(); i++) {
+            char letter = input.charAt(i);
+            int index = ALPHABET.indexOf(Character.toLowerCase(letter));
+            
+            if (index != -1) {
+                result[index]++;
+            }
+            
+        }
+        
+        return result;
     }
 }
