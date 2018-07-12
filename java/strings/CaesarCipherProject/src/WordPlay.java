@@ -8,14 +8,16 @@ package src;
  * @version (a version number or a date)
  */
 public class WordPlay {
-    private static String vowels = "AEIOUaeiou";
+    public static String VOWELS = "AEIOUaeiou";
+    public static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    
     public WordPlay() {}
     
     public boolean isVowel(char ch) {
-        return vowels.indexOf(ch) >= 0 ? true : false;
+        return VOWELS.indexOf(ch) >= 0 ? true : false;
     }
     
-    public String replaceVowels(String original, char ch) {
+    public String replaceVOWELS(String original, char ch) {
         StringBuilder builder = new StringBuilder(original);
         
         for (int i = 0; i < original.length(); i++) {
