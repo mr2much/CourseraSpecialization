@@ -51,7 +51,7 @@ public class WordPlay {
 
         for (int i = 0; i < input.length(); i++) {
             char letter = input.charAt(i);
-            int index = ALPHABET.indexOf(Character.toLowerCase(letter));
+            int index = getIndexOfChar(letter);
             
             if (index != -1) {
                 result[index]++;
@@ -60,5 +60,9 @@ public class WordPlay {
         }
         
         return result;
+    }
+    
+    private int getIndexOfChar(char ch) {
+        return ALPHABET.indexOf(Character.toLowerCase(ch));
     }
 }
