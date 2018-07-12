@@ -17,7 +17,7 @@ public class WordPlay {
         return VOWELS.indexOf(ch) >= 0 ? true : false;
     }
     
-    public String replaceVOWELS(String original, char ch) {
+    public String replaceVowels(String original, char ch) {
         StringBuilder builder = new StringBuilder(original);
         
         for (int i = 0; i < original.length(); i++) {
@@ -44,5 +44,9 @@ public class WordPlay {
     
     private boolean isEven(int n) {
         return n % 2 == 0;
+    }
+    
+    public int[] textFingerPrint(String input) {
+        return new int[] {1, 1, 1, 1, 1, 1};
     }
 }

@@ -14,6 +14,7 @@ public class IsVowelTest {
         shouldReturnTrueIfCharIsVowel();
         shouldReplaceVowelsWithChar();
         testEmphasize();
+        testTextFingerPrint();
         System.out.println("OK");
     }
     
@@ -44,6 +45,20 @@ public class IsVowelTest {
         
         assert emphasized.equals("M+ry Bell+ +br*c*d*br+") : 
             "Value " + emphasized;
+    }
+    
+    public void testTextFingerPrint() {
+        WordPlay wp = new WordPlay();
+        
+        int[] letterCount = wp.textFingerPrint("Anubis");
+        
+        compare(letterCount, new int[] {1, 1, 1, 1, 1, 1});
+    }
+    
+    private void compare(int[] toTest, int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            assert toTest[i] == arr[i];
+        }
     }
 
 }
