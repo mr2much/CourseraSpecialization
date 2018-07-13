@@ -72,4 +72,29 @@ public class CaesarCipher {
             shiftedAlphabet.charAt(index);
     }
     
+    public String decrypt(String encrypted) {
+        int[] freqs = wp.textFingerPrint(encrypted);
+        int maxIndex = maxIndex(freqs);
+        
+        int decryptionKey = maxIndex - 4;
+        
+        if (maxIndex < 4) {
+            decryptionKey = 26 - (4 - maxIndex);
+        }
+        
+        return encrypt(encrypted, 26 - decryptionKey);
+    }
+    
+    private int maxIndex(int[] frequencies) {
+        int maxIndex = 0;
+        
+        for (int i = 0; i < frequencies.length; i++) {
+            if (frequencies[i] > frequencies[maxIndex]) {
+                maxIndex = i;
+            }
+        }
+        
+        return maxIndex;
+    }
+    
 }

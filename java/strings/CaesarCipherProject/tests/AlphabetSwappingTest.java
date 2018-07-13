@@ -13,6 +13,7 @@ public class AlphabetSwappingTest {
         // testSwappingAlphabetByKey();
         testEncription();
         testEncryptionWithTwoKeys();
+        testDecryption();
         System.out.println("OK");
     }
     
@@ -51,5 +52,15 @@ public class AlphabetSwappingTest {
         
         assert cipher.encrypt("First Legion", 23, 17)
             .equals("Czojq Ivdzle");
+    }
+    
+    public void testDecryption() {
+        CaesarCipher cipher = new CaesarCipher();
+        String original = "Anubis is the enemy";
+        String encrypted = cipher.encrypt(original, 10);
+        
+        String decrypted = cipher.decrypt(encrypted);
+        
+        assert decrypted.equals(original) : "Value " + decrypted;
     }
 }
