@@ -10,7 +10,10 @@ public class CaesarCipher {
     String shiftedAlphabet;
     WordPlay wp;
     
-    public CaesarCipher() { this.wp = new WordPlay(); }
+    public CaesarCipher(int key) {
+        this.wp = new WordPlay(); 
+        shiftAlphabet(key);
+    }
     
     private void shiftAlphabet(int key) {
         StringBuilder builder = new StringBuilder(ALPHABET.substring(key))
@@ -19,9 +22,8 @@ public class CaesarCipher {
         shiftedAlphabet = builder.toString();
     }
     
-    public String encrypt(String toEncrypt, int key) {
+    public String encrypt(String toEncrypt) {
         StringBuilder encrypted = new StringBuilder(toEncrypt);
-        shiftAlphabet(key);
         
         for (int i = 0; i < toEncrypt.length(); i++) {
             char currentChar = encrypted.charAt(i);
@@ -40,11 +42,35 @@ public class CaesarCipher {
         return encrypted.toString();
     }
     
+    // public String encrypt(String toEncrypt, int key) {
+        // StringBuilder encrypted = new StringBuilder(toEncrypt);
+        // shiftAlphabet(key);
+        
+        // for (int i = 0; i < toEncrypt.length(); i++) {
+            // char currentChar = encrypted.charAt(i);
+            
+            // if(!Character.isLetter(currentChar)) {
+                // continue;
+            // }
+            
+            // int currentIndex = getCurrentIndex(currentChar);
+            // char encryptedChar = getEncryptedCharacterFor(currentIndex,
+                // isLowerCase(currentChar));
+            
+            // encrypted.setCharAt(i, encryptedChar);
+        // }
+        
+        // return encrypted.toString();
+    // }
+    
     public String encrypt(String toEncrypt, int key1, int key2) {
         StringBuilder builder = new StringBuilder(toEncrypt);
         
-        String encrypted1 = encrypt(toEncrypt, key1);
-        String encrypted2 = encrypt(toEncrypt, key2);
+        CaesarCipher cc1 = new CaesarCipher(key1);
+        CaesarCipher cc2 = new CaesarCipher(key2);
+        
+        String encrypted1 = cc1.encrypt(toEncrypt);
+        String encrypted2 = cc2.encrypt(toEncrypt);
         
         for (int i = 0; i < builder.length(); i++) {
             builder.setCharAt(i, isEven(i + 1) ? encrypted2.charAt(i) :
@@ -82,7 +108,8 @@ public class CaesarCipher {
             decryptionKey = 26 - (4 - maxIndex);
         }
         
-        return encrypt(encrypted, 26 - decryptionKey);
+        CaesarCipher cc = new CaesarCipher(26 - decryptionKey);
+        return cc.encrypt(encrypted);
     }
     
     public int maxIndex(int[] frequencies) {
