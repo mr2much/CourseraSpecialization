@@ -8,16 +8,16 @@ package src;
  * @version (a version number or a date)
  */
 public class CaesarBreaker {
-    private CaesarCipher cc;
     private WordPlay wp;
     
     public CaesarBreaker() {
-        cc = new CaesarCipher();
+        // cc = new CaesarCipher();
         wp = new WordPlay();
     }
     
     public String decryptOneKey(String encrypted) {
-        return cc.decrypt(encrypted);
+        CaesarCipher cc = new CaesarCipher();
+        return cc.breakCaesarCipher(encrypted);
     }
     
     public String decryptTwoKeys(String encrypted) {
@@ -27,8 +27,8 @@ public class CaesarBreaker {
         int key1 = getKey(firstHalf);
         int key2 = getKey(secondHalf);
         
-        System.out.println("Key1: " + key1 + "\tKey2: " + key2);
-        String decrypted = cc.encrypt(encrypted, 26 - key1, 26 - key2);
+        CaesarCipherTwo cc = new CaesarCipherTwo(key1, key2);
+        String decrypted = cc.decrypt(encrypted);
         
         return decrypted;
     }
@@ -45,6 +45,8 @@ public class CaesarBreaker {
     
     public int getKey(String s) {
         int[] freqs = wp.textFingerPrint(s);
+        
+        CaesarCipher cc = new CaesarCipher();
         
         int maxIndex = cc.maxIndex(freqs);
         

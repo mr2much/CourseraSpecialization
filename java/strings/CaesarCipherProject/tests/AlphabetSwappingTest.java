@@ -7,12 +7,13 @@ package tests;
  */
 
 import src.CaesarCipher;
+import src.CaesarCipherTwo;
 
 public class AlphabetSwappingTest {
     public void performTests() {
         // testSwappingAlphabetByKey();
         testEncription();
-        // testEncryptionWithTwoKeys();
+        testEncryptionWithTwoKeys();
         testDecryption();
         System.out.println("OK");
     }
@@ -50,12 +51,13 @@ public class AlphabetSwappingTest {
             .equals("Wzijk Cvxzfe");
     }
     
-    // public void testEncryptionWithTwoKeys() {
-        // CaesarCipher cipher = new CaesarCipher();
+    public void testEncryptionWithTwoKeys() {
+        CaesarCipherTwo cipher = new CaesarCipherTwo(23, 17);
+                
+        String encrypted = cipher.encrypt("First Legion");
         
-        // assert cipher.encrypt("First Legion", 23, 17)
-            // .equals("Czojq Ivdzle");
-    // }
+        assert encrypted.equals("Czojq Ivdzle") : "Value " + encrypted;
+    }
     
     public void testDecryption() {
         CaesarCipher cipher = new CaesarCipher(10);

@@ -10,6 +10,7 @@ package tests;
 
 import src.CaesarBreaker;
 import src.CaesarCipher;
+import src.CaesarCipherTwo;
 
 public class CaesarBreakerTester {
     public void performTests() {
@@ -21,11 +22,11 @@ public class CaesarBreakerTester {
     }
     
     public void testDecryptionWithOneKey() {
-        CaesarCipher cc = new CaesarCipher();
+        CaesarCipher cc = new CaesarCipher(16);
         
         String original = "I LOVE SEX";
         
-        String encrypted = cc.encrypt(original, 16);
+        String encrypted = cc.encrypt(original);
 
         CaesarBreaker cb = new CaesarBreaker();
         
@@ -44,13 +45,13 @@ public class CaesarBreakerTester {
     }
     
     public void testDecryptionWithTwoKeys() {
-        CaesarCipher cc = new CaesarCipher();
+        CaesarCipherTwo cc = new CaesarCipherTwo(23, 2);
         
         String original = "Just a test string with lots of eeeeeeeeeeeeeeeees";
         
-        String encrypted = cc.encrypt(original, 23, 2);
+        String encrypted = cc.encrypt(original);
         
-        assert encrypted.equals("Gwpv c vbuq pvokki yfve iqqu qc bgbgbgbgbgbgbgbgbu");
+        assert encrypted.equals("Gwpv c vbuq pvokki yfve iqqu qc bgbgbgbgbgbgbgbgbu") : "Value " + encrypted;
         
         CaesarBreaker cb = new CaesarBreaker();
         
@@ -58,11 +59,11 @@ public class CaesarBreakerTester {
     }
     
     public void getKeyShouldReturnKeyUsed() {
-        CaesarCipher cc = new CaesarCipher();
+        CaesarCipher cc = new CaesarCipher(19);
         
         String original = "Letter e";
         
-        String encrypted = cc.encrypt(original, 19);
+        String encrypted = cc.encrypt(original);
         
         CaesarBreaker cb = new CaesarBreaker();
         
@@ -70,7 +71,9 @@ public class CaesarBreakerTester {
         
         assert key == 19;
         
-        encrypted = cc.encrypt(original, 11);
+        cc = new CaesarCipher(11);
+        
+        encrypted = cc.encrypt(original);
         
         assert cb.getKey(encrypted) == 11;
     }

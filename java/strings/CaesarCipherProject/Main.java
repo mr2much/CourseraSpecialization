@@ -8,20 +8,19 @@
 
 import edu.duke.FileResource;
 import src.CaesarCipher;
+import src.CaesarCipherTwo;
 import src.CaesarBreaker;
 import src.WordLengths;
 
 public class Main {
     public static void main(String[] args) {
-        CaesarCipher cipher = new CaesarCipher();
+        CaesarCipher cipher = new CaesarCipher(15);
         
         String message = "At noon be in the conference room with your hat on " +
             "for a surprise party. YELL LOUD!";
             
-        System.out.println(cipher.encrypt(message, 15));
-        
-        System.out.println(cipher.encrypt(message, 8, 21));
-        
+        System.out.println(cipher.encrypt(message));
+        // System.out.println(cipher.encrypt(message, 8, 21));
         System.out.println("Most common word length of file romeo.txt = " + mostCommonWordLengthOfFile("res/romeo.txt"));
         System.out.println("Most common word length of file lotsOfWords.txt = " + mostCommonWordLengthOfFile("res/lotsOfWords.txt"));
         System.out.println(decryptMessageWithTwoKeys("Top ncmy qkff vi vguv vbg ycpx"));
@@ -56,9 +55,9 @@ public class Main {
     }
     
     public static String decryptMessageWithTwoKeys(String encrypted) {
-        CaesarCipher cc = new CaesarCipher();
+        CaesarCipherTwo cc = new CaesarCipherTwo(2, 20);
         
-        return cc.encrypt(encrypted, 26 - 2, 26 - 20);
+        return cc.decrypt(encrypted);
     }
     
     public static String decryptFileWithTwoKeys(String filename) {

@@ -7,12 +7,18 @@ package src;
  */
 public class CaesarCipher {
     private final static String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String shiftedAlphabet;
-    WordPlay wp;
+    private String shiftedAlphabet;
+    private WordPlay wp;
+    private int mainKey;
+    
+    public CaesarCipher() {
+        this.wp = new WordPlay();
+    }
     
     public CaesarCipher(int key) {
         this.wp = new WordPlay(); 
         shiftAlphabet(key);
+        this.mainKey = key;
     }
     
     private void shiftAlphabet(int key) {
@@ -99,6 +105,12 @@ public class CaesarCipher {
     }
     
     public String decrypt(String encrypted) {
+        CaesarCipher cc = new CaesarCipher(26 - mainKey);
+        
+        return cc.encrypt(encrypted);
+    }
+    
+    public String breakCaesarCipher(String encrypted) {
         int[] freqs = wp.textFingerPrint(encrypted);
         int maxIndex = maxIndex(freqs);
         
