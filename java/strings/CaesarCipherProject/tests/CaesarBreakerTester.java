@@ -15,6 +15,7 @@ public class CaesarBreakerTester {
     public void performTests() {
         testDecryptionWithOneKey();
         testHalfOfString();
+        getKeyShouldReturnKeyUsed();
         testDecryptionWithTwoKeys();
         System.out.println("OK");
     }
@@ -50,5 +51,27 @@ public class CaesarBreakerTester {
         String encrypted = cc.encrypt(original, 23, 2);
         
         assert encrypted.equals("Gwpv c vbuq pvokki yfve iqqu qc bgbgbgbgbgbgbgbgbu");
+        
+        CaesarBreaker cb = new CaesarBreaker();
+        
+        assert cb.decryptTwoKeys(encrypted).equals(original);
+    }
+    
+    public void getKeyShouldReturnKeyUsed() {
+        CaesarCipher cc = new CaesarCipher();
+        
+        String original = "Letter e";
+        
+        String encrypted = cc.encrypt(original, 19);
+        
+        CaesarBreaker cb = new CaesarBreaker();
+        
+        int key = cb.getKey(encrypted);
+        
+        assert key == 19;
+        
+        encrypted = cc.encrypt(original, 11);
+        
+        assert cb.getKey(encrypted) == 11;
     }
 }

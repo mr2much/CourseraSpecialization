@@ -85,7 +85,7 @@ public class CaesarCipher {
         return encrypt(encrypted, 26 - decryptionKey);
     }
     
-    private int maxIndex(int[] frequencies) {
+    public int maxIndex(int[] frequencies) {
         int maxIndex = 0;
         
         for (int i = 0; i < frequencies.length; i++) {
