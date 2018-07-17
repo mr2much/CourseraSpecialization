@@ -41,9 +41,12 @@ public class CaesarCipherTwo {
                 continue;
             }
             
-            int currentIndex = getCurrentIndex(Character.toUpperCase(currentCharacter));
+            int currentIndex = 
+                getCurrentIndex(Character.toUpperCase(currentCharacter));
             
-            char encryptedCharacter = getEncryptedCharacter(i, currentIndex, isLowerCase(currentCharacter));
+            char encryptedCharacter = 
+                getEncryptedCharacter(i, currentIndex, 
+                    isLowerCase(currentCharacter));
             
             builder.setCharAt(i, encryptedCharacter);
         }
@@ -79,7 +82,16 @@ public class CaesarCipherTwo {
         return cc.encrypt(encrypted);
     }
     
-    
+    public String breakCaesarCipher(String encrypted) {
+        String firstHalf = halfOfString(encrypted, 0);
+        String secondHalf = halfOfString(encrypted, 1);
+        
+        int key1 = getKey(firstHalf);
+        int key2 = getKey(secondHalf);
+        
+        CaesarCipherTwo cct = new CaesarCipherTwo(26 - key1, 26 - key2);
+        return cct.encrypt(encrypted);
+    }
     
     public String halfOfString(String message, int start) {
         StringBuilder builder = new StringBuilder();
@@ -89,5 +101,27 @@ public class CaesarCipherTwo {
         }
         
         return builder.toString();
+    }
+    
+    public int getKey(String s) {
+        int[] freqs = wp.textFingerPrint(s);
+        
+        CaesarCipher cc = new CaesarCipher();
+        
+        int maxIndex = cc.maxIndex(freqs);
+        
+        int key = calculateDecryptionKey(maxIndex);
+        
+        return key;
+    }
+    
+    private int calculateDecryptionKey(int index) {
+        int decryptionKey = index - 4;
+        
+        if (index < 4) {
+            decryptionKey = 26 - (4 - index);
+        }
+        
+        return decryptionKey;
     }
 }

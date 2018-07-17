@@ -31,6 +31,8 @@ public class Main {
         
         System.out.println("Showing the decrypted file mysteryTwoKeysPractice.txt");
         System.out.println(decryptFileWithTwoKeys("res/mysteryTwoKeysPractice.txt"));
+        
+        testCaesarCipherTwo();
         // FileResource fr = new FileResource();
         
         // StringBuilder encrypted = new StringBuilder();
@@ -66,5 +68,20 @@ public class Main {
         CaesarBreaker cb = new CaesarBreaker();
         
         return cb.decryptTwoKeys(fr.asString());        
+    }
+    
+    public static void testCaesarCipherTwo() {
+        FileResource fr = new FileResource("res/smallHamlet.txt");
+        
+        CaesarCipherTwo cct = new CaesarCipherTwo(17, 3);
+        
+        String encrypted = cct.encrypt(fr.asString());
+        
+        System.out.println("Encrypted with Two Keys\n" + encrypted);
+        
+        System.out.println("\nDecrypted Using Own Encryptor\n" + 
+            cct.decrypt(encrypted));
+        System.out.println("\nDouble Encryption Broken\n" + 
+            cct.breakCaesarCipher(encrypted));
     }
 }
