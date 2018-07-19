@@ -20,6 +20,7 @@ public class Main {
             "for a surprise party. YELL LOUD!";
             
         System.out.println(cipher.encrypt(message));
+        
         // System.out.println(cipher.encrypt(message, 8, 21));
         System.out.println("Most common word length of file romeo.txt = " + mostCommonWordLengthOfFile("res/romeo.txt"));
         System.out.println("Most common word length of file lotsOfWords.txt = " + mostCommonWordLengthOfFile("res/lotsOfWords.txt"));
@@ -33,6 +34,27 @@ public class Main {
         System.out.println(decryptFileWithTwoKeys("res/mysteryTwoKeysPractice.txt"));
         
         testCaesarCipherTwo();
+        
+        System.out.println("Final Quizz");
+        
+        message = "Can you imagine life WITHOUT the internet AND computers in your pocket?";
+        
+        System.out.println(encryptSingleKey(message, 15));
+        System.out.println(encryptTwoKeys(message, 21, 8));
+        
+        System.out.println("Most common word length of file errors.txt = " + mostCommonWordLengthOfFile("res/errors.txt"));
+        System.out.println("Most common word length of file manywords.txt = " + mostCommonWordLengthOfFile("res/manywords.txt"));
+        
+        CaesarCipherTwo cct = new CaesarCipherTwo(14, 24);
+        System.out.println("Decrypted Quizz: " + 
+            cct.decrypt("Hfs cpwewloj loks cd Hoto kyg Cyy."));
+            
+        System.out.println("Breaking the Quizz: " +
+            cct.breakCaesarCipher(
+                "Aal uttx hm aal Qtct Fhljha pl Wbdl. Pvxvxlx!"));
+                
+        System.out.println(
+            decryptFileWithTwoKeys("res/mysteryTwoKeysQuiz.txt"));
         // FileResource fr = new FileResource();
         
         // StringBuilder encrypted = new StringBuilder();
@@ -65,9 +87,9 @@ public class Main {
     public static String decryptFileWithTwoKeys(String filename) {
         FileResource fr = new FileResource(filename);
         
-        CaesarBreaker cb = new CaesarBreaker();
+        CaesarCipherTwo cct = new CaesarCipherTwo(1, 2);
         
-        return cb.decryptTwoKeys(fr.asString());        
+        return cct.breakCaesarCipher(fr.asString());        
     }
     
     public static void testCaesarCipherTwo() {
@@ -83,5 +105,18 @@ public class Main {
             cct.decrypt(encrypted));
         System.out.println("\nDouble Encryption Broken\n" + 
             cct.breakCaesarCipher(encrypted));
+        
+    }
+    
+    public static String encryptSingleKey(String message, int key) {
+        CaesarCipher cc = new CaesarCipher(key);
+        
+        return cc.encrypt(message);
+    }
+    
+    public static String encryptTwoKeys(String message, int key1, int key2) {
+        CaesarCipherTwo cct = new CaesarCipherTwo(key1, key2);
+        
+        return cct.encrypt(message);
     }
 }

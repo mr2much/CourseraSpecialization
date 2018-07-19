@@ -16,7 +16,14 @@ public class WordLengths {
     public void countWordLengths(FileResource fr, int[] counts) {
         for (String word : fr.words()) {
             int length = getLengthOfWord(word);
-            counts[length]++;
+            
+            if (length >= counts.length) {
+                length = counts.length - 1;
+            } else if (length < 0) {
+                length = 0;
+            }
+            
+            counts[length]++;        
         }
     }
     
@@ -24,7 +31,7 @@ public class WordLengths {
         int length = word.length();
         
         char firstChar = Character.toLowerCase(word.charAt(0));
-        char lastChar = Character.toLowerCase(word.charAt(length - 1));
+        char lastChar = Character.toLowerCase(word.charAt(length - 1));        
         
         if (!Character.isLetter(firstChar)) {
             length--;

@@ -89,6 +89,8 @@ public class CaesarCipherTwo {
         int key1 = getKey(firstHalf);
         int key2 = getKey(secondHalf);
         
+        System.out.println("Key1: " + key1 + "\tKey2: " + key2);
+        
         CaesarCipherTwo cct = new CaesarCipherTwo(26 - key1, 26 - key2);
         return cct.encrypt(encrypted);
     }
