@@ -1,4 +1,4 @@
-
+package src;
 /**
  * Write a description of WordCounting here.
  * 
@@ -22,7 +22,8 @@ public class WordCounting {
         FileResource fr = new FileResource();
         
         for (String s : fr.words()) {
-            s = removePunctuation(s).toLowerCase();
+            // s = removePunctuation(s).toLowerCase();
+            s = s.toLowerCase();
             int index = myWords.indexOf(s);
             
             if (index < 0) {
@@ -60,6 +61,21 @@ public class WordCounting {
             System.out.println(myWords.get(i) + "\t" +
                 wordFrequencies.get(i));
         }
+    }
+    
+    public void showWordWithHighestFrequency() {
+        int maxCount = Integer.MIN_VALUE;
+        int index = 0;
+        
+        for (int i = 0; i < myWords.size(); i++) {
+            if (wordFrequencies.get(i) > maxCount) {
+                maxCount = wordFrequencies.get(i);
+                index = i;
+            }
+        }
+        
+        System.out.printf("The word with the highest frequency is %s " +
+            "which occurs %d times.%n", myWords.get(index), maxCount);
     }
     
     public void test() {
