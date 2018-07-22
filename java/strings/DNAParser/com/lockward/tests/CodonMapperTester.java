@@ -16,6 +16,9 @@ public class CodonMapperTester {
     public void performTests() {
         testKeySetReturnedFromFrame();
         testValuesReturnedFromFrame();
+        testMostCommonCodon();
+        testPrintCodonCount();
+        testBuildCodonMapOneArg();
         System.out.println("OK");
     }
     
@@ -57,5 +60,43 @@ public class CodonMapperTester {
                 "Values: " + valuesToCompare[i] + "\t" +
                 compareValues[i];
         }
+    }
+    
+    public void testMostCommonCodon() {
+        CodonMapper cm = new CodonMapper();
+        String dna = "CGTTCAAGTTCAA";
+        
+        cm.buildCodonMap(0, dna);        
+        String codon = cm.getMostCommonCodon();        
+        assert codon.equals("TCA");
+        
+        cm.buildCodonMap(1, dna);
+        codon = cm.getMostCommonCodon();
+        assert codon.equals("CAA");
+        
+        cm.buildCodonMap(2, dna);
+        codon = cm.getMostCommonCodon();
+        assert codon.equals("TTC");
+    }
+    
+    public void testPrintCodonCount() {
+        CodonMapper cm = new CodonMapper();
+        String dna = "CGTTCAAGTTCAA";
+        
+        cm.buildCodonMap(0, dna);
+        cm.printCodonCount(0, 5);
+        
+        cm.buildCodonMap(1, dna);
+        cm.printCodonCount(0, 5);
+        
+        cm.buildCodonMap(2, dna);
+        cm.printCodonCount(0, 5);
+    }
+    
+    public void testBuildCodonMapOneArg() {
+        CodonMapper cm = new CodonMapper();
+        
+        cm.buildCodonMap(0);        
+        cm.printCodonCount(0,5);
     }
 }
