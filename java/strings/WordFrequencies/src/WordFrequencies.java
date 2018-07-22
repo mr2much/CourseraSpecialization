@@ -6,86 +6,78 @@ package src;
  * @version (a version number or a date)
  */
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import edu.duke.FileResource;
 
 public class WordFrequencies {
-    private List<String> myWords;
-    private List<Integer> myFrequencies;
+    Map<String, Integer> wordFrequencies;
     private int wordsRead;
     
     public WordFrequencies() {
-        myWords = new ArrayList<>();
-        myFrequencies = new ArrayList<>();
+        wordFrequencies = new HashMap<>();
     }
     
     public void tester() {
         findUnique();
         showWordFrequencies();
-        int indexOfMax = findIndexOfHighestFrequency(myFrequencies);
-        showIndexOfHighestFrequency(indexOfMax);
+        String word = findWordWithHighestFrequency();
+        showWordWithHighestFrequency(word);
     }
     
     public void findUnique() {        
         initialize();
-        myWords = getUniqueWordsFromFile();
+        getUniqueWordsFromFile();
     }
     
     private void initialize() {
-        myWords.clear();
-        myFrequencies.clear();
+        wordFrequencies.clear();
         wordsRead = 0;
     }
     
-    private List<String> getUniqueWordsFromFile() {
-        List<String> uniqueWords = new ArrayList<>();
-        
+    private void getUniqueWordsFromFile() {
         FileResource fr = new FileResource();
         
         for (String word : fr.words()) {
             word = word.toLowerCase();
-            if (!uniqueWords.contains(word)) {
-                uniqueWords.add(word);
-                myFrequencies.add(1);
+            if (!wordFrequencies.containsKey(word)) {
+                wordFrequencies.put(word, 1);
             } else {
-                int kthPosition = uniqueWords.indexOf(word);
-                int value = myFrequencies.get(kthPosition);
-                myFrequencies.set(kthPosition, value + 1);
+                wordFrequencies.put(word, wordFrequencies.get(word) + 1);
             }
             wordsRead++;
         }
         
-        return uniqueWords;
     }
     
     public void showWordFrequencies() {
         System.out.printf("%d words where read from the file, of which " +
-            "%d are unique words.%n", wordsRead, myWords.size());
-        for (int i = 0; i < myWords.size(); i++) {
-            System.out.println(myWords.get(i) + "\t" + 
-                myFrequencies.get(i));
+            "%d are unique words.%n", wordsRead, wordFrequencies.size());
+        
+        for (String key : wordFrequencies.keySet()) {
+            System.out.println(key + "\t" + 
+                wordFrequencies.get(key));
         }
     }
     
-    public int findIndexOfHighestFrequency(List<Integer> frequencies) {
-        int index = -1;
+    public String findWordWithHighestFrequency() {
+        String word = "";
         int maxValue = Integer.MIN_VALUE;
         
-        for (int i = 0; i < frequencies.size(); i++) {
-            
-            if (frequencies.get(i) > maxValue) {
-                maxValue = frequencies.get(i);
-                index = i;
+        for (String key : wordFrequencies.keySet()) {
+            if (wordFrequencies.get(key) > maxValue) {
+                maxValue = wordFrequencies.get(key);
+                word = key;
             }
         }
         
-        return index;
+        return word;
+    }
+        
+    public void showWordWithHighestFrequency(String word) {
+        System.out.printf("The word with the highest frequency is '%s' " +
+            "which occurred %d times.%n", word, 
+            wordFrequencies.get(word));
     }
     
-    public void showIndexOfHighestFrequency(int index) {
-        System.out.printf("The word with the highest frequency is '%s' " +
-            "which occurred %d times.%n", myWords.get(index), 
-            myFrequencies.get(index));
-    }
 }
