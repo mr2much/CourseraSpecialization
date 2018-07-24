@@ -4,17 +4,18 @@ import edu.duke.*;
 import java.util.*;
 
 public class GladLib {
+    private static final String dataSourceURL = "http://dukelearntoprogram.com/course3/data";
+    private static final String dataSourceDirectory = "datalong";
+    private static final String[] categories = {"adjective", "noun", "color",
+        "country", "name", "animal", "timeframe", "verb", "fruit"};
+    
     Map<String, List<String>> myMap;
 
+    private ArrayList<String> usedCategories;
     private ArrayList<String> usedWords;
     private int replacedWords;
     
     private Random myRandom;
-    
-    private static String dataSourceURL = "http://dukelearntoprogram.com/course3/data";
-    private static String dataSourceDirectory = "datalong";
-    private static final String[] categories = {"adjective", "noun", "color",
-        "country", "name", "animal", "timeframe", "verb", "fruit"};
     
     public GladLib(){
         myMap = new HashMap<>();
@@ -33,6 +34,7 @@ public class GladLib {
                 source, category)));
         }
         
+        usedCategories = new ArrayList<>();
         usedWords = new ArrayList<>();
     }
     
@@ -49,6 +51,7 @@ public class GladLib {
         }
         
         if (myMap.containsKey(label)) {
+            usedCategories.add(label);
             return randomFrom(myMap.get(label));
         }
         
@@ -122,12 +125,16 @@ public class GladLib {
     public void makeStory() {
         usedWords.clear();
         System.out.println("\n");
-        String story = fromTemplate("datalong/madtemplate2.txt");
+        String story = fromTemplate("data/madtemplate3.txt");
         System.out.println(replacedWords + " words were harmed when creating this story.\n");
         printOut(story, 60);
         
         System.out.println("\n\nThe total words that were available to pick" +
             " from to create this story was " + totalWordsInMap());
+            
+        System.out.println("\n\nThe total words that were avaiable for " +
+            "each category used to build this story was: " +
+            totalWordsConsidered());
     }
     
     public int totalWordsInMap() {
@@ -135,6 +142,18 @@ public class GladLib {
         
         for (String key : myMap.keySet()) {
             for (String word : myMap.get(key)) {
+                totalWords++;
+            }
+        }
+        
+        return totalWords;
+    }
+    
+    public int totalWordsConsidered() {
+        int totalWords = 0;
+        
+        for (String category : usedCategories) {
+            for (String word : myMap.get(category)) {
                 totalWords++;
             }
         }
