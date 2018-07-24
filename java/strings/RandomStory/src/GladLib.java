@@ -125,8 +125,21 @@ public class GladLib {
         String story = fromTemplate("datalong/madtemplate2.txt");
         System.out.println(replacedWords + " words were harmed when creating this story.\n");
         printOut(story, 60);
+        
+        System.out.println("\n\nThe total words that were available to pick" +
+            " from to create this story was " + totalWordsInMap());
     }
     
-
-
+    public int totalWordsInMap() {
+        int totalWords = 0;
+        
+        for (String key : myMap.keySet()) {
+            for (String word : myMap.get(key)) {
+                totalWords++;
+            }
+        }
+        
+        return totalWords;
+    }
+    
 }
