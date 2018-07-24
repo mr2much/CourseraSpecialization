@@ -17,7 +17,7 @@ import edu.duke.DirectoryResource;
 
 public class WordsInFilesTester {
     public void performTests() {
-        // testOpenSeveralFilesAndReadItsContents();
+        testOpenSeveralFilesAndReadItsContents();
         // testGettingFileList();
         // testAddWordsFromFile();
         testWordsInNumFiles();
@@ -32,7 +32,7 @@ public class WordsInFilesTester {
         wf.readFiles();
         
         wf.showKeysOnMap();
-        wf.printFilesIn("Dogs");
+        wf.showAllInfoInMap();
     }
     
     public void testGettingFileList() {

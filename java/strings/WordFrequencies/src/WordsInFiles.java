@@ -122,4 +122,13 @@ public class WordsInFiles {
             }
         }
     }
+    
+    public void showAllInfoInMap() {
+        for (String key : wordsMap.keySet()) {
+            System.out.println("Files associated with: " + key);
+            for (String file : wordsMap.get(key)) {
+                System.out.println("    " + file);
+            }
+        }
+    }
 }
