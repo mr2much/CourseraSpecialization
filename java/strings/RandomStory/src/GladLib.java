@@ -4,6 +4,7 @@ import edu.duke.*;
 import java.util.*;
 
 public class GladLib {
+    Map<String, List<String>> myMap;
     private ArrayList<String> adjectiveList;
     private ArrayList<String> nounList;
     private ArrayList<String> colorList;
@@ -20,8 +21,11 @@ public class GladLib {
     
     private static String dataSourceURL = "http://dukelearntoprogram.com/course3/data";
     private static String dataSourceDirectory = "datalong";
+    private static final String[] categories = {"adjective", "noun", "color",
+        "country", "name", "animal", "timeframe", "verb", "fruit"};
     
     public GladLib(){
+        myMap = new HashMap<>();
         initializeFromSource(dataSourceDirectory);
         myRandom = new Random();
     }
@@ -32,55 +36,65 @@ public class GladLib {
     }
     
     private void initializeFromSource(String source) {
-        adjectiveList= readIt(source+"/adjective.txt"); 
-        nounList = readIt(source+"/noun.txt");
-        colorList = readIt(source+"/color.txt");
-        countryList = readIt(source+"/country.txt");
-        nameList = readIt(source+"/name.txt");      
-        animalList = readIt(source+"/animal.txt");
-        timeList = readIt(source+"/timeframe.txt");
-        verbList = readIt(source + "/verb.txt");
-        fruitList = readIt(source + "/fruit.txt");
+        for (String category : categories) {
+            myMap.put(category, readIt(String.format("%s/%s.txt",
+                source, category)));
+        }
+        
+        // adjectiveList= readIt(source+"/adjective.txt"); 
+        // nounList = readIt(source+"/noun.txt");
+        // colorList = readIt(source+"/color.txt");
+        // countryList = readIt(source+"/country.txt");
+        // nameList = readIt(source+"/name.txt");      
+        // animalList = readIt(source+"/animal.txt");
+        // timeList = readIt(source+"/timeframe.txt");
+        // verbList = readIt(source + "/verb.txt");
+        // fruitList = readIt(source + "/fruit.txt");
         usedWords = new ArrayList<>();
     }
     
-    private String randomFrom(ArrayList<String> source){
+    private String randomFrom(List<String> source){
         int index = myRandom.nextInt(source.size());
         return source.get(index);
     }
     
     private String getSubstitute(String label) {
         replacedWords++;
-        if (label.equals("country")) {
-            return randomFrom(countryList);
-        }
-        if (label.equals("color")){
-            return randomFrom(colorList);
-        }
-        if (label.equals("noun")){
-            return randomFrom(nounList);
-        }
-        if (label.equals("name")){
-            return randomFrom(nameList);
-        }
-        if (label.equals("adjective")){
-            return randomFrom(adjectiveList);
-        }
-        if (label.equals("animal")){
-            return randomFrom(animalList);
-        }
-        if (label.equals("timeframe")){
-            return randomFrom(timeList);
-        }
-        if (label.equals("verb")) {
-            return randomFrom(verbList);
-        }
-        if (label.equals("fruit")) {
-            return randomFrom(fruitList);
-        }
+        
+        // if (label.equals("country")) {
+            // return randomFrom(countryList);
+        // }
+        // if (label.equals("color")){
+            // return randomFrom(colorList);
+        // }
+        // if (label.equals("noun")){
+            // return randomFrom(nounList);
+        // }
+        // if (label.equals("name")){
+            // return randomFrom(nameList);
+        // }
+        // if (label.equals("adjective")){
+            // return randomFrom(adjectiveList);
+        // }
+        // if (label.equals("animal")){
+            // return randomFrom(animalList);
+        // }
+        // if (label.equals("timeframe")){
+            // return randomFrom(timeList);
+        // }
+        // if (label.equals("verb")) {
+            // return randomFrom(verbList);
+        // }
+        // if (label.equals("fruit")) {
+            // return randomFrom(fruitList);
+        // }
         if (label.equals("number")){
             return ""+myRandom.nextInt(50)+5;
-        } 
+        }
+        
+        if (myMap.containsKey(label)) {
+            return randomFrom(myMap.get(label));
+        }
         
         return "**UNKNOWN**";
     }
