@@ -115,11 +115,9 @@ public class WordsInFiles {
         }
     }
     
-    public void showFilesInLists() {
-        System.out.println("Displaying contents.");
-        for (String key : wordsMap.keySet()) {
-            System.out.println("Filenames associated with key: " + key);
-            for (String filename : wordsMap.get(key)) {
+    public void printFilesIn(String word) {
+        if (wordsMap.containsKey(word)) {
+            for (String filename : wordsMap.get(word)) {
                 System.out.println(filename);
             }
         }

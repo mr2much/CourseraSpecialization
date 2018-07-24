@@ -21,7 +21,8 @@ public class WordsInFilesTester {
         // testGettingFileList();
         // testAddWordsFromFile();
         testWordsInNumFiles();
-        testMaxNumber();        
+        testMaxNumber();
+        testPrintFilesIn();
         System.out.println("OK");
     }
     
@@ -31,7 +32,7 @@ public class WordsInFilesTester {
         wf.readFiles();
         
         wf.showKeysOnMap();
-        wf.showFilesInLists();
+        wf.printFilesIn("Dogs");
     }
     
     public void testGettingFileList() {
@@ -86,5 +87,13 @@ public class WordsInFilesTester {
         wf.readFiles();
         
         assert 3 == wf.maxNumber();
+    }
+    
+    public void testPrintFilesIn() {
+        WordsInFiles wf = new WordsInFiles();
+        
+        wf.readFiles();
+        
+        wf.printFilesIn("cats");
     }
 }
