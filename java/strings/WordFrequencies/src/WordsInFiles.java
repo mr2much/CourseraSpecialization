@@ -26,6 +26,7 @@ public class WordsInFiles {
     }
     
     public void readFiles() {
+        wordsMap.clear();
         fileList = getFilesFromDirectory();
         
         for (File filename : fileList) {
@@ -37,7 +38,7 @@ public class WordsInFiles {
     
     public void addWordsFromFile(File f) {
         List<String> contents = getWordsFromFile(f);
-        FileResource fr = new FileResource(f);
+
         for (String word : contents) {
             if (wordsMap.containsKey(word)) {
                 List<String> list = wordsMap.get(word);
@@ -77,6 +78,20 @@ public class WordsInFiles {
         }
         
         return fileContents;
+    }
+    
+    public int maxNumber() {
+        int max = Integer.MIN_VALUE;
+        
+        for (String key : wordsMap.keySet()) {
+            List<String> list = wordsMap.get(key);
+            
+            if (list.size() > max) {
+                max = list.size();
+            }
+        }
+        
+        return max;
     }
     
     public void showKeysOnMap() {

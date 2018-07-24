@@ -20,6 +20,7 @@ public class WordsInFilesTester {
         testOpenSeveralFilesAndReadItsContents();
         // testGettingFileList();
         // testAddWordsFromFile();
+        testMaxNumber();
         System.out.println("OK");
     }
     
@@ -63,5 +64,13 @@ public class WordsInFilesTester {
             assert arr[i].toString().contains(cArr[i].toString()) : "Value: " +
                 arr[i] + "\t" + cArr[i];
         }
+    }
+    
+    public void testMaxNumber() {
+        WordsInFiles wf = new WordsInFiles();
+        
+        wf.readFiles();
+        
+        assert 3 == wf.maxNumber();
     }
 }
