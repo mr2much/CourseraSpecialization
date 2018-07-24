@@ -10,7 +10,11 @@ package src;
 public class Main {
     
     public static void main(String[] args) {
-        testWithFullFile();
+        WordsInFiles wf = new WordsInFiles();
+        
+        wf.readFiles();
+        wf.printFilesIn("red");
+        // testWithFullFile();
     }
     
     public static void testWithFullFile() {

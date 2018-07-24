@@ -78,11 +78,15 @@ public class CodonMapper {
     }
     
     public void printCodonCount(int start, int end) {
+        int codonCount = 0;
         for (String key : codonMap.keySet()) {
+            codonCount++;
             int value = codonMap.get(key);
             if (value >= start && value < end) {
                 System.out.println(key  + "\t" + value);
             }
         }
+        
+        System.out.println("Codon count: " + codonCount);
     }
 }
