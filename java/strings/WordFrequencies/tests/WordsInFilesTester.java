@@ -17,10 +17,11 @@ import edu.duke.DirectoryResource;
 
 public class WordsInFilesTester {
     public void performTests() {
-        testOpenSeveralFilesAndReadItsContents();
+        // testOpenSeveralFilesAndReadItsContents();
         // testGettingFileList();
         // testAddWordsFromFile();
-        testMaxNumber();
+        testWordsInNumFiles();
+        testMaxNumber();        
         System.out.println("OK");
     }
     
@@ -55,6 +56,19 @@ public class WordsInFilesTester {
         
         compare(words, new String[] {"cats", "are", "funny", "and", "cute"});
         
+    }
+    
+    public void testWordsInNumFiles() {
+        WordsInFiles wf = new WordsInFiles();
+        
+        wf.readFiles();
+        
+        List<String> words = wf.wordsInNumFiles(3);
+        
+        compare(words, new String[] {"cats", "and"});
+        
+        words = wf.wordsInNumFiles(2);
+        compare(words, new String[] {"love", "are", "dogs"});
     }
     
     private void compare(Collection<? extends Object> coll, Object[] cArr) {

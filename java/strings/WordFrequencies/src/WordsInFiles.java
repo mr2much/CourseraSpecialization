@@ -94,6 +94,20 @@ public class WordsInFiles {
         return max;
     }
     
+    public List<String> wordsInNumFiles(int number) {
+        List<String> words = new ArrayList<>();
+        
+        for (String key : wordsMap.keySet()) {
+            List<String> list = wordsMap.get(key);
+            
+            if (list.size() == number) {
+                words.add(key);
+            }
+        }
+        
+        return words;
+    }
+    
     public void showKeysOnMap() {
         System.out.println("Displaying keys");
         for (String key : wordsMap.keySet()) {
