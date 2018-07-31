@@ -17,6 +17,11 @@ public class Tester
     public void performTests() {
         testLogEntry();
         testLogAnalyzer();
+        testLogAnalyzerUniqueIPs();
+        testHigherThanNum();
+        testUniqueVisitsOnDay();
+        testUniqueIPsInRange();
+        testPrintHigherThan400();
         System.out.println("OK");
     }
     
@@ -36,5 +41,56 @@ public class Tester
         String filename = "res/short-test_log";
         logAnalyzer.readFile(filename);
         logAnalyzer.printAll();
+    }
+    
+    public void testLogAnalyzerUniqueIPs() {
+        assert logAnalyzer.countUniqueIPs() == 4;
+    }
+    
+    public void testHigherThanNum() {
+        logAnalyzer.printAllHigherThanNum(150);
+        logAnalyzer.printAllHigherThanNum(200);
+    }
+    
+    public void testUniqueVisitsOnDay() {
+        String filename = "res/weblog-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        la.readFile(filename);
+        
+        List<String> uniqueIPs = la.uniqueIPVisitsOnDay("Sep 14");        
+        assert uniqueIPs.size() == 2;        
+        compare(uniqueIPs, new String[] {"84.133.195.161", "177.4.40.87"});
+        
+        uniqueIPs = la.uniqueIPVisitsOnDay("Sep 30");
+        assert uniqueIPs.size() == 3;
+        compare(uniqueIPs, new String[] {"84.189.158.117", "61.15.121.171",
+            "177.4.40.87"});
+    }
+    
+    private void compare(List<? extends Object> list, Object[] arr) {
+        Object[] cArr = list.toArray(new Object[list.size()]);
+        
+        for (int i = 0; i < arr.length; i++) {
+            assert cArr[i].equals(arr[i]);
+        }
+    }
+    
+    public void testUniqueIPsInRange() {
+        assert logAnalyzer.countUniqueIPsInRange(200, 299) == 4;
+        assert logAnalyzer.countUniqueIPsInRange(300, 399) == 2;
+    }
+    
+    public void testPrintHigherThan400() {
+        LogAnalyzer la = new LogAnalyzer();
+        String filename = "res/weblog1_log";
+        la.readFile(filename);
+        
+        la.printAllHigherThanNum(400);
+        
+        System.out.println("Unique IP vistis on Mar 17: " +
+            la.uniqueIPVisitsOnDay("Mar 17").size());
+            
+        System.out.println("Numbers in range 200, 299: " +
+            la.countUniqueIPsInRange(200, 299));
     }
 }

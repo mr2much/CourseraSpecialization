@@ -15,7 +15,7 @@ public class LogEntry
     private final int statusCode;
     private final int bytesReturned;
 
-    public String getIpAddress() { return ipAddress; }
+    public String getIPAddress() { return ipAddress; }
     public Date getAccessTime() { return accessTime; }
     public String getRequest() { return request; }
     public int getStatusCode() { return statusCode; }
