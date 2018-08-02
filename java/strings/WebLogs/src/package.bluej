@@ -1,12 +1,12 @@
 #BlueJ package file
-dependency1.from=LogAnalyzer
+dependency1.from=WebLogParser
 dependency1.to=LogEntry
 dependency1.type=UsesDependency
 dependency2.from=LogAnalyzer
-dependency2.to=WebLogParser
+dependency2.to=LogEntry
 dependency2.type=UsesDependency
-dependency3.from=WebLogParser
-dependency3.to=LogEntry
+dependency3.from=LogAnalyzer
+dependency3.to=WebLogParser
 dependency3.type=UsesDependency
 objectbench.height=93
 objectbench.width=760

@@ -22,6 +22,7 @@ public class Tester
         testUniqueVisitsOnDay();
         testUniqueIPsInRange();
         testPrintHigherThan400();
+        testCountVisitsPerIP();
         System.out.println("OK");
     }
     
@@ -92,5 +93,20 @@ public class Tester
             
         System.out.println("Numbers in range 200, 299: " +
             la.countUniqueIPsInRange(200, 299));
+    }
+    
+    public void testCountVisitsPerIP() {
+        LogAnalyzer la = new LogAnalyzer();
+        String filename = "res/short-test_log";
+        la.readFile(filename);
+        Map<String, Integer> compare = new HashMap<>();
+        
+        compare.put("157.55.39.203", 1);
+        compare.put("152.3.135.44", 3);
+        compare.put("152.3.135.63", 2);
+        compare.put("110.76.104.12", 1);
+        
+        assert compare.equals(la.countVisitsPerIP()) : "Value: " +
+            la.countVisitsPerIP();
     }
 }
