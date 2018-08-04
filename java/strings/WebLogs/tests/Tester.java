@@ -23,6 +23,11 @@ public class Tester
         testUniqueIPsInRange();
         testPrintHigherThan400();
         testCountVisitsPerIP();
+        testMostNumberOfVisits();
+        testIPsMostVisits();
+        testIPsForDays();
+        testDayWithMostVisits();
+        testIPsWithMostVisitsOnDay();
         System.out.println("OK");
     }
     
@@ -68,14 +73,6 @@ public class Tester
             "177.4.40.87"});
     }
     
-    private void compare(List<? extends Object> list, Object[] arr) {
-        Object[] cArr = list.toArray(new Object[list.size()]);
-        
-        for (int i = 0; i < arr.length; i++) {
-            assert cArr[i].equals(arr[i]);
-        }
-    }
-    
     public void testUniqueIPsInRange() {
         assert logAnalyzer.countUniqueIPsInRange(200, 299) == 4;
         assert logAnalyzer.countUniqueIPsInRange(300, 399) == 2;
@@ -108,5 +105,70 @@ public class Tester
         
         assert compare.equals(la.countVisitsPerIP()) : "Value: " +
             la.countVisitsPerIP();
+    }
+    
+    public void testMostNumberOfVisits() {
+        String filename = "res/weblog3-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        la.readFile(filename);
+        
+        Map<String, Integer> entries = la.countVisitsPerIP();
+        
+        assert la.mostNumberVisitsByIP(entries) == 3;
+    }
+    
+    public void testIPsMostVisits() {
+        String filename = "res/weblog3-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        la.readFile(filename);
+        
+        Map<String, Integer> entries = la.countVisitsPerIP();
+        
+        List<String> ips = la.IPsMostVisits(entries);
+        
+        compare(ips, new String[] {"61.15.121.171", "84.133.195.161"});
+    }
+    
+    public void testIPsForDays() {
+        String filename = "res/weblog3-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        la.readFile(filename);
+        
+        Map<String, List<String>> entries = la.IPsForDays();
+        assert entries.get("Sep 14").size() == 1;
+        assert entries.get("Sep 21").size() == 4;
+        assert entries.get("Sep 30").size() == 5;
+    }
+    
+    public void testDayWithMostVisits() {
+        String filename = "res/weblog3-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        
+        la.readFile(filename);
+        
+        Map<String, List<String>> entries = la.IPsForDays();
+        
+        assert la.dayWithMostIPVisits(entries).equals("Sep 30");
+    }
+    
+    public void testIPsWithMostVisitsOnDay() {
+        String filename = "res/weblog3-short_log";
+        LogAnalyzer la = new LogAnalyzer();
+        
+        la.readFile(filename);
+        Map<String, List<String>> entries = la.IPsForDays();
+        
+        List<String> ips = la.IPsWithMostVisitsOnDay(entries, "Sep 30");
+        
+        System.out.println("IPS: " + ips.toString());
+        compare(ips, new String[] {"61.15.121.171", "177.4.40.87"});
+    }
+    
+    private void compare(List<? extends Object> list, Object[] arr) {
+        Object[] cArr = list.toArray(new Object[list.size()]);
+        
+        for (int i = 0; i < arr.length; i++) {
+            assert cArr[i].equals(arr[i]);
+        }
     }
 }

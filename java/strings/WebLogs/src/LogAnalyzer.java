@@ -8,9 +8,12 @@ package src;
 
 import java.util.*;
 import edu.duke.*;
+import java.text.SimpleDateFormat;
 
 public class LogAnalyzer
 {
+     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
+     
      private ArrayList<LogEntry> records;
      
      public LogAnalyzer() {
@@ -100,5 +103,82 @@ public class LogAnalyzer
          }
          
          return counts;
+     }
+     
+     public int mostNumberVisitsByIP(Map<String, Integer> entries) {
+         int maxVisits = Integer.MIN_VALUE;
+         
+         for (String ip : entries.keySet()) {
+             int value = entries.get(ip);
+             
+             if (value > maxVisits) {
+                 maxVisits = value;
+             }
+         }
+         
+         return maxVisits;
+     }
+     
+     public List<String> IPsMostVisits(Map<String, Integer> entries) {
+         int mostVisits = mostNumberVisitsByIP(entries);
+         
+         List<String> visits = new ArrayList<>();
+         
+         for (String ip : entries.keySet()) {
+             if (entries.get(ip) == mostVisits) {
+                 visits.add(ip);
+             }
+         }
+                  
+         return visits;
+     }
+     
+     public Map<String, List<String>> IPsForDays() {
+         Map<String, List<String>> entries = new HashMap<>();
+         
+         List<String> visits = new ArrayList<>();
+         
+         for (LogEntry le : records) {
+             String date = dateFormat.format(le.getAccessTime());
+             
+             if (entries.containsKey(date)) {
+                 List<String> ips = entries.get(date);
+                 ips.add(le.getIPAddress());
+                 entries.put(date, ips);
+             } else {
+                 List<String> ips = new ArrayList<>();
+                 ips.add(le.getIPAddress());
+                 entries.put(date, ips);
+             }
+             
+         }
+         
+         return entries;
+     }
+     
+     public String dayWithMostIPVisits(Map<String, List<String>> entries) {
+         String day = "";
+         int mostVisits = Integer.MIN_VALUE;
+         
+         for (String key : entries.keySet()) {
+             int visits = entries.get(key).size();
+             
+             if (visits > mostVisits) {
+                 mostVisits = visits;
+                 day = key;
+             }
+         }
+         
+         return day;
+     }
+     
+     public List<String> IPsWithMostVisitsOnDay(Map<String, List<String>> entries, String day) {
+         List<String> ips = new ArrayList<>();
+         
+         if (entries.containsKey(day)) {
+             System.out.println(entries.get(day).toString());
+         }
+         
+         return ips;
      }
 }
