@@ -160,7 +160,6 @@ public class Tester
         
         List<String> ips = la.IPsWithMostVisitsOnDay(entries, "Sep 30");
         
-        System.out.println("IPS: " + ips.toString());
         compare(ips, new String[] {"61.15.121.171", "177.4.40.87"});
     }
     

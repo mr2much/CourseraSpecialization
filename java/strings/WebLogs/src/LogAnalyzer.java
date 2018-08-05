@@ -173,12 +173,34 @@ public class LogAnalyzer
      }
      
      public List<String> IPsWithMostVisitsOnDay(Map<String, List<String>> entries, String day) {
-         List<String> ips = new ArrayList<>();
+         List<String> ips = new ArrayList<>();        
          
          if (entries.containsKey(day)) {
-             System.out.println(entries.get(day).toString());
+             Map<String, Integer> visitsPerIP = mapVisitCount(entries.get(day));
+             int higherCount = mostNumberVisitsByIP(visitsPerIP);
+             
+             for (String ip : visitsPerIP.keySet()) {
+                 
+                 if (visitsPerIP.get(ip) == higherCount) {
+                     ips.add(ip);
+                 }
+             }
          }
          
          return ips;
+     }
+     
+     private Map<String, Integer> mapVisitCount(List<String> ips) {
+         Map<String, Integer> visits = new HashMap<>();
+         
+         for (String ip : ips) {
+             if (visits.containsKey(ip)) {
+                 visits.put(ip, visits.get(ip) + 1);
+             } else {
+                 visits.put(ip, 1);
+             }
+         }
+         
+         return visits;
      }
 }
