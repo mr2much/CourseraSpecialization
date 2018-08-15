@@ -47,8 +47,7 @@ public class CaesarCracker {
     public String decrypt(String encrypted){
         int key = getKey(encrypted);
         CaesarCipher cc = new CaesarCipher(key);
-        return cc.decrypt(encrypted);
-        
+        return cc.decrypt(encrypted);        
     }
    
 }
