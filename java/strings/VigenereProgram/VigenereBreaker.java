@@ -2,16 +2,53 @@ import java.util.*;
 import edu.duke.*;
 
 public class VigenereBreaker {
-    public String sliceString(String message, int whichSlice, int totalSlices) {
-        StringBuilder slice = new StringBuilder();
+    public void breakVigenere () {
+        FileResource fr = new FileResource();
+        FileResource dictionaryResource = 
+            new FileResource("dictionaries/English");
+            
+        String encrypted = fr.asString();
+        HashSet<String> dictionary = readDictionary(dictionaryResource);         
         
-        for (int i = whichSlice; i < message.length(); i += totalSlices) {
-            slice.append(message.charAt(i));
+        String decrypted = breakForLanguage(encrypted, dictionary);
+        System.out.println(decrypted);
+    }
+    
+    public HashSet<String> readDictionary(FileResource fr) {
+        HashSet<String> dictionary = new HashSet<>();
+        
+        for (String word : fr.lines()) {
+            dictionary.add(word.toLowerCase());
         }
         
-        return slice.toString();
+        return dictionary;
     }
-
+    
+    public String breakForLanguage(String encrypted, 
+        HashSet<String> dictionary) {
+        
+        String decrypted = "";
+        int validWords = Integer.MIN_VALUE;
+        int wordCount = 0;
+        for (int i = 1; i <= 100; i++) {
+            int[] keys = tryKeyLength(encrypted, i, 'e');
+            VigenereCipher vc = new VigenereCipher(keys);
+            String message = vc.decrypt(encrypted);
+            
+            wordCount = countWords(message, dictionary);
+            
+            if (wordCount > validWords) {
+                validWords = wordCount;
+                decrypted = message;
+            }
+        }
+        
+        System.out.println("Valid Words: " + validWords + 
+            ", Word Count: " + encrypted.split("\\W+").length);
+            
+        return decrypted;        
+    }
+    
     public int[] tryKeyLength(String encrypted, int klength, char mostCommon) {
         int[] key = new int[klength];
         CaesarCracker cc = new CaesarCracker(mostCommon);
@@ -23,18 +60,30 @@ public class VigenereBreaker {
         
         return key;
     }
-
-    public void breakVigenere () {
-        FileResource fr = new FileResource();
+    
+    public String sliceString(String message, int whichSlice, int totalSlices) {
+        StringBuilder slice = new StringBuilder();
         
-        String encrypted = fr.asString();
+        for (int i = whichSlice; i < message.length(); i += totalSlices) {
+            slice.append(message.charAt(i));
+        }
         
-        int[] keys = tryKeyLength(encrypted, 5, 'e');
-        
-        VigenereCipher vc = new VigenereCipher(keys);
-        
-        String decrypted = vc.decrypt(encrypted);
-        System.out.println(decrypted);
+        return slice.toString();
     }
     
+    public int countWords(String message, HashSet<String> dictionary) {
+        int wordCount = 0;
+        
+        String[] words = message.split("\\W+");
+        
+        for (String word : words) {
+            word = word.toLowerCase();
+            
+            if (dictionary.contains(word)) {
+                wordCount++;
+            }
+        }
+        
+        return wordCount;
+    }
 }
