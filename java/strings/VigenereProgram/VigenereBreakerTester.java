@@ -34,15 +34,12 @@ public class VigenereBreakerTester {
     
     public void testKeyLength() {
         FileResource fr = new FileResource("messages/athens_keyflute.txt");
-        int[] keys = vb.tryKeyLength(fr.asString(), 4, 'e');
+        int[] keys = vb.tryKeyLength(fr.asString(), 5, 'e');
         
         compare(keys, new int[] {5, 11, 20, 19, 4});
     }
     
     private void compare(int[] a1, int[] a2) {
-        for(int i : a1) {
-            System.out.println(i);
-        }
         for (int i = 0; i < a1.length; i++) {
             assert a1[i] == a2[i] : "Value: " + a1[i] + ", " + a2[i];
         }

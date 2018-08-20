@@ -18,7 +18,7 @@ public class VigenereBreaker {
         
         for (int i = 0; i < key.length; i++) {
             String slice = sliceString(encrypted, i, klength);
-            key[i] = cc.getKey(slice);
+            key[i] = cc.getKey(slice);;
         }
         
         return key;
