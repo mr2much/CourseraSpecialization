@@ -14,6 +14,7 @@ public class VigenereBreakerTester {
     public void performTests() {
         testSliceString();
         testKeyLength();
+        testBreakVigenere();
         System.out.println("OK");
     }
     
@@ -43,5 +44,9 @@ public class VigenereBreakerTester {
         for (int i = 0; i < a1.length; i++) {
             assert a1[i] == a2[i] : "Value: " + a1[i] + ", " + a2[i];
         }
+    }
+    
+    public void testBreakVigenere() {
+        vb.breakVigenere();
     }
 }
