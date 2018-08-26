@@ -7,6 +7,7 @@
  */
 
 import edu.duke.FileResource;
+import java.util.HashSet;
 
 public class VigenereBreakerTester {
     private VigenereBreaker vb = new VigenereBreaker();
@@ -14,7 +15,8 @@ public class VigenereBreakerTester {
     public void performTests() {
         testSliceString();
         testKeyLength();
-        testBreakVigenere();
+        // testBreakVigenere();
+        testMostCommonChar();
         System.out.println("OK");
     }
     
@@ -48,5 +50,20 @@ public class VigenereBreakerTester {
     
     public void testBreakVigenere() {
         vb.breakVigenere();
+    }
+    
+    public void testMostCommonChar() {
+        FileResource fr = new FileResource("dictionaries/English");
+        
+        HashSet<String> dictionary = vb.readDictionary(fr);
+        char letter = vb.mostCommonCharIn(dictionary);
+        
+        assert letter == 'e';
+        
+        fr = new FileResource("dictionaries/Portuguese");
+        
+        dictionary = vb.readDictionary(fr);
+        letter = vb.mostCommonCharIn(dictionary);
+        assert letter == 'a';
     }
 }

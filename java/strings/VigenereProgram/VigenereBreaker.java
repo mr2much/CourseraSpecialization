@@ -30,6 +30,8 @@ public class VigenereBreaker {
         String decrypted = "";
         int validWords = Integer.MIN_VALUE;
         int wordCount = 0;
+        int keyLength = 0;
+        
         for (int i = 1; i <= 100; i++) {
             int[] keys = tryKeyLength(encrypted, i, 'e');
             VigenereCipher vc = new VigenereCipher(keys);
@@ -40,8 +42,11 @@ public class VigenereBreaker {
             if (wordCount > validWords) {
                 validWords = wordCount;
                 decrypted = message;
+                keyLength = i;
             }
         }
+        
+        System.out.println("They key length found was: " + keyLength);
         
         System.out.println("Valid Words: " + validWords + 
             ", Word Count: " + encrypted.split("\\W+").length);
@@ -85,5 +90,32 @@ public class VigenereBreaker {
         }
         
         return wordCount;
+    }
+    
+    public char mostCommonCharIn(HashSet<String> dictionary) {
+        Map<Character, Integer> letterCount = new HashMap<>();
+        int highestCount = Integer.MIN_VALUE;
+        char mostCommon = ' ';
+        
+        for (String word : dictionary) {
+            for (int i = 0; i < word.length(); i++) {
+                char letter = word.charAt(i);
+                
+                if (letterCount.containsKey(letter)) {
+                    letterCount.put(letter, letterCount.get(letter) + 1);
+                } else {
+                    letterCount.put(letter, 1);
+                }
+            }
+        }
+        
+        for (Character letter : letterCount.keySet()) {
+            if (letterCount.get(letter) > highestCount) {
+                highestCount = letterCount.get(letter);
+                mostCommon = letter;
+            }
+        }
+        
+        return mostCommon;
     }
 }
