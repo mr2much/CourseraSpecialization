@@ -15,7 +15,7 @@ public class VigenereBreakerTester {
     public void performTests() {
         testSliceString();
         testKeyLength();
-        // testBreakVigenere();
+        testBreakVigenere();
         testMostCommonChar();
         System.out.println("OK");
     }
